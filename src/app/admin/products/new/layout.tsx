@@ -1,0 +1,20 @@
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+
+export default async function AdminProductsNewLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = await createServerSupabaseClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/admin");
+
+  return (
+    <div className="min-h-screen bg-cream-50 flex">
+      <AdminSidebar />
+      <main className="flex-1 ml-64 p-8">{children}</main>
+    </div>
+  );
+}

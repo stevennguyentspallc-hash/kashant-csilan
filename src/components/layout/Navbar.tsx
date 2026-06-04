@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -31,13 +32,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex flex-col leading-none">
-          <span className="font-serif text-xl font-bold tracking-wide text-white drop-shadow">
-            KASHANT
-          </span>
-          <span className="text-[10px] tracking-widest2 text-gold-400 uppercase">
-            C-Silan LLC
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Kashant C-Silan LLC"
+            width={140}
+            height={48}
+            className="h-12 w-auto object-contain drop-shadow"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
