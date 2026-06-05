@@ -146,8 +146,7 @@ export default function NewProductPage() {
 
       router.push("/admin/products");
       router.refresh();
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to save product");
+      await fetch("/api/revalidate", { method: "POST" });
     } finally {
       setLoading(false);
     }

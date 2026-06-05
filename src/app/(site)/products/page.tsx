@@ -4,6 +4,9 @@ import { getProducts, getCategories } from "@/lib/supabase/queries";
 import ProductCard from "@/components/products/ProductCard";
 import ProductsFilter from "./ProductsFilter";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Products",
   description:

@@ -170,6 +170,9 @@ export default function EditProductPage() {
 
       router.push("/admin/products");
       router.refresh();
+
+      // Revalidate public pages
+      await fetch("/api/revalidate", { method: "POST" });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
