@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Truck, Shield, Award, Headphones } from "lucide-react";
 import { getFeaturedProducts, getCategories } from "@/lib/supabase/queries";
 import ProductCard from "@/components/products/ProductCard";
+import HeroCarousel from "@/components/home/HeroCarousel";
 
 const CATEGORY_ICONS: Record<string, string> = {
   "pedicure-chairs":     "💺",
@@ -66,58 +67,8 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ─── HERO ──────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center bg-charcoal-900 overflow-hidden">
-        {/* Gradient overlay as fallback bg */}
-        <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 via-charcoal-800 to-[#2a2010]" />
-
-        {/* Decorative gold line */}
-        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-transparent via-gold-400 to-transparent opacity-40" />
-
-        <div className="relative max-w-7xl mx-auto px-6 pt-28 pb-20">
-          <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-6">
-            Kashant C-Silan LLC
-          </p>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl">
-            Elevate Your Salon.<br />
-            <span className="text-gold-400">Elevate Your Brand.</span>
-          </h1>
-          <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
-            Premium nail salon furniture engineered for the modern US salon.
-            From pedicure thrones to reception desks — every piece tells a
-            story of luxury.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full font-medium"
-            >
-              Shop Collection <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-white/30 text-white text-sm tracking-widest uppercase hover:border-gold-400 hover:text-gold-400 transition-colors rounded-full"
-            >
-              Contact Us
-            </Link>
-          </div>
-
-          {/* Stats row */}
-          <div className="mt-20 flex flex-wrap gap-10">
-            {[
-              { value: "500+", label: "Salons Served" },
-              { value: "50",   label: "States Covered" },
-              { value: "8",    label: "Product Lines" },
-              { value: "1-Day",label: "Quote Response" },
-            ].map(({ value, label }) => (
-              <div key={label}>
-                <p className="font-serif text-3xl font-bold text-white">{value}</p>
-                <p className="text-xs text-white/40 uppercase tracking-widest mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─── HERO CAROUSEL ─────────────────────────────────────── */}
+      <HeroCarousel />
 
       {/* ─── CATEGORIES ────────────────────────────────────────── */}
       <section className="py-24 bg-cream-50">
