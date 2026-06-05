@@ -1,7 +1,14 @@
 import { Suspense } from "react";
+import { Metadata } from "next";
 import { getProducts, getCategories } from "@/lib/supabase/queries";
 import ProductCard from "@/components/products/ProductCard";
 import ProductsFilter from "./ProductsFilter";
+
+export const metadata: Metadata = {
+  title: "Products",
+  description:
+    "Browse our full catalog of premium nail salon furniture. Pedicure chairs, manicure tables, reception desks, spa beds and more. All specifications in US measurements.",
+};
 
 interface PageProps {
   searchParams: Promise<{ category?: string }>;
