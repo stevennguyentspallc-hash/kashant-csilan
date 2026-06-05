@@ -53,8 +53,8 @@ export async function POST(req: NextRequest) {
         "Authorization": `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        from:    "onboarding@resend.dev",
-        to:      [NOTIFY_EMAIL],
+        from:    "Kashant Admin <onboarding@resend.dev>",
+        to:      ["cnail1911@gmail.com"],
         subject: `New Quote Request — ${productName}`,
         html:    `<p><b>From:</b> ${full_name} (${email})</p><p><b>Product:</b> ${productName}</p><p><b>State:</b> ${state}</p><p><b>Qty:</b> ${quantity}</p><p><b>Message:</b> ${message}</p>`,
       }),
