@@ -18,32 +18,35 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <>
       <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-        {/* Image */}
-        <div className="relative aspect-[4/3] bg-cream-100 overflow-hidden">
-          {currentImage ? (
-            <Image
-              src={currentImage}
-              alt={product.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-6xl font-serif text-cream-200">K</span>
-            </div>
-          )}
-          {product.categories && (
-            <span className="absolute top-3 left-3 bg-white/90 text-charcoal-900 text-[10px] tracking-widest uppercase px-3 py-1 rounded-full">
-              {product.categories.name}
-            </span>
-          )}
-        </div>
+        {/* Image — click to detail */}
+        <Link href={`/products/${product.slug}`}>
+          <div className="relative aspect-[4/3] bg-cream-100 overflow-hidden cursor-pointer">
+            {currentImage ? (
+              <Image
+                src={currentImage} alt={product.name}
+                fill className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-6xl font-serif text-cream-200">K</span>
+              </div>
+            )}
+            {product.categories && (
+              <span className="absolute top-3 left-3 bg-white/90 text-charcoal-900 text-[10px] tracking-widest uppercase px-3 py-1 rounded-full">
+                {product.categories.name}
+              </span>
+            )}
+          </div>
+        </Link>
 
         {/* Content */}
         <div className="p-5">
-          <h3 className="font-serif text-lg font-bold text-charcoal-900 mb-1">
-            {product.name}
-          </h3>
+          {/* Name — click to detail */}
+          <Link href={`/products/${product.slug}`}>
+            <h3 className="font-serif text-lg font-bold text-charcoal-900 mb-1 hover:text-gold-500 transition-colors cursor-pointer">
+              {product.name}
+            </h3>
+          </Link>
 
           {/* Specs */}
           <div className="flex flex-wrap gap-3 text-xs text-charcoal-800/50 my-3">
