@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
 import HeroCarousel from "@/components/home/HeroCarousel";
+import PromotionsBanner from "@/components/home/PromotionsBanner";
 
 const CATEGORY_ICONS: Record<string, string> = {
   "pedicure-chairs":     "💺",
@@ -73,6 +74,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PROMOTIONS */}
+      <PromotionsBanner />
 
       {/* FEATURED PRODUCTS */}
       {featuredProducts.length > 0 && (

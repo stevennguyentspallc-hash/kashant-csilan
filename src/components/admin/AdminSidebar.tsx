@@ -4,16 +4,17 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, Package, MessageSquare,
-  LogOut, ExternalLink, Menu, X, Images, LayoutTemplate,
+  LogOut, ExternalLink, Menu, X, Images, LayoutTemplate, Tag,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard",      href: "/admin/dashboard" },
-  { icon: Package,         label: "Products",       href: "/admin/products"  },
-  { icon: LayoutTemplate,  label: "Banners",        href: "/admin/banners"   },
-  { icon: Images,          label: "Gallery",        href: "/admin/gallery"   },
-  { icon: MessageSquare,   label: "Quote Requests", href: "/admin/quotes"    },
+  { icon: LayoutDashboard, label: "Dashboard",      href: "/admin/dashboard"   },
+  { icon: Package,         label: "Products",       href: "/admin/products"    },
+  { icon: LayoutTemplate,  label: "Banners",        href: "/admin/banners"     },
+  { icon: Tag,             label: "Promotions",     href: "/admin/promotions"  },
+  { icon: Images,          label: "Gallery",        href: "/admin/gallery"     },
+  { icon: MessageSquare,   label: "Quote Requests", href: "/admin/quotes"      },
 ];
 
 export default function AdminSidebar() {

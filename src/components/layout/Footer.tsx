@@ -22,11 +22,12 @@ export default function Footer() {
           </p>
           <ul className="space-y-2">
             {[
-              { label: "Home",     href: "/" },
-              { label: "Products", href: "/products" },
-              { label: "About Us", href: "/about" },
-              { label: "Gallery",  href: "/gallery" },
-              { label: "Contact",  href: "/contact" },
+              { label: "Home",       href: "/" },
+              { label: "Products",   href: "/products" },
+              { label: "Promotions", href: "/promotions" },
+              { label: "About Us",   href: "/about" },
+              { label: "Gallery",    href: "/gallery" },
+              { label: "Contact",    href: "/contact" },
             ].map((item) => (
               <li key={item.label}>
                 <Link

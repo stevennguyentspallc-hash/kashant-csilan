@@ -5,11 +5,12 @@ import Image from "next/image";
 import { Phone, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home",     href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "About Us", href: "/about" },
-  { label: "Gallery",  href: "/gallery" },
-  { label: "Contact",  href: "/contact" },
+  { label: "Home",       href: "/" },
+  { label: "Products",   href: "/products" },
+  { label: "Promotions", href: "/promotions" },
+  { label: "About Us",   href: "/about" },
+  { label: "Gallery",    href: "/gallery" },
+  { label: "Contact",    href: "/contact" },
 ];
 
 export default function Navbar() {
