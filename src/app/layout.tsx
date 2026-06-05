@@ -9,6 +9,10 @@ const BASE_URL = "https://kashant-csilan.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   title: {
     default:  "Kashant C-Silan LLC — Premium Nail Salon Furniture",
     template: "%s | Kashant C-Silan LLC",

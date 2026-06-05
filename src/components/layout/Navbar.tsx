@@ -36,9 +36,9 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Kashant C-Silan LLC"
-            width={140}
-            height={48}
-            className="h-12 w-auto object-contain drop-shadow"
+            width={180}
+            height={60}
+            className="h-16 w-auto object-contain drop-shadow"
             priority
           />
         </Link>
