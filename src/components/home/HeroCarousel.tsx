@@ -82,7 +82,7 @@ export default function HeroCarousel() {
               priority={i === 0}
             />
           ) : null}
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 via-charcoal-800/90 to-[#2a2010]/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal-900/85 via-charcoal-900/50 to-charcoal-900/20" />
         </div>
       ))}
 
