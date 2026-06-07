@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Upload, Plus, X, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Category } from "@/types";
+import CategorySelect from "@/components/admin/CategorySelect";
 
 interface Variant {
   color_name: string;
@@ -189,13 +190,10 @@ export default function NewProductPage() {
             </div>
             <div>
               <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Category</label>
-              <select name="category_id" value={form.category_id} onChange={handleChange}
-                className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors bg-white">
-                <option value="">Select category</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
-              </select>
+              <CategorySelect
+                value={form.category_id}
+                onChange={(val) => setForm((p) => ({ ...p, category_id: val }))}
+              />
             </div>
             <div className="col-span-2">
               <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Description</label>

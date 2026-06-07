@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Upload, Plus, X, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Category } from "@/types";
+import CategorySelect from "@/components/admin/CategorySelect";
 
 interface Variant {
   id?: string;

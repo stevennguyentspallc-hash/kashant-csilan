@@ -9,25 +9,17 @@ import HeroCarousel from "@/components/home/HeroCarousel";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
 
 const CATEGORY_ICONS: Record<string, string> = {
-  "pedicure-chairs":     "💺",
-  "manicure-tables":     "🪑",
-  "reception-desks":     "🗃️",
-  "salon-chairs":        "💈",
-  "nail-dryer-stations": "💨",
-  "spa-beds":            "🛏️",
-  "polish-rack-cabinet": "🗄️",
-  "padset":              "🪆",
+  "pedicure-spa":      "💺",
+  "furniture":         "🪑",
+  "custom-furniture":  "🔨",
+  "head-spa":          "🧖",
 };
 
 const STATIC_CATEGORIES = [
-  { name: "Pedicure Chairs",     slug: "pedicure-chairs" },
-  { name: "Manicure Tables",     slug: "manicure-tables" },
-  { name: "Reception Desks",     slug: "reception-desks" },
-  { name: "Salon Chairs",        slug: "salon-chairs" },
-  { name: "Nail Dryer Stations", slug: "nail-dryer-stations" },
-  { name: "Spa Beds",            slug: "spa-beds" },
-  { name: "Polish Rack Cabinet", slug: "polish-rack-cabinet" },
-  { name: "Padset",              slug: "padset" },
+  { name: "Pedicure Spa",     slug: "pedicure-spa"     },
+  { name: "Furniture",        slug: "furniture"        },
+  { name: "Custom Furniture", slug: "custom-furniture" },
+  { name: "Head Spa",         slug: "head-spa"         },
 ];
 
 const WHY_US = [
