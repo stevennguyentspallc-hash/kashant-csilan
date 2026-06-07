@@ -5,6 +5,7 @@ export interface Category {
   description: string | null;
   image_url: string | null;
   sort_order: number;
+  parent_id: string | null;
 }
 
 export interface ProductVariant {
