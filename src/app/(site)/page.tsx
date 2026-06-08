@@ -7,20 +7,7 @@ import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
-
-const CATEGORY_ICONS: Record<string, string> = {
-  "pedicure-spa":      "💺",
-  "furniture":         "🪑",
-  "custom-furniture":  "🔨",
-  "head-spa":          "🧖",
-};
-
-const STATIC_CATEGORIES = [
-  { name: "Pedicure Spa",     slug: "pedicure-spa"     },
-  { name: "Furniture",        slug: "furniture"        },
-  { name: "Custom Furniture", slug: "custom-furniture" },
-  { name: "Head Spa",         slug: "head-spa"         },
-];
+import CategoryCarousel from "@/components/home/CategoryCarousel";
 
 const WHY_US = [
   { icon: Truck,      title: "Nationwide Freight",   desc: "White-glove delivery to all 50 states with real-time tracking." },
@@ -31,41 +18,22 @@ const WHY_US = [
 
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const [categories,       setCategories]       = useState<Category[]>([]);
 
   useEffect(() => {
     const supabase = createClient();
     Promise.all([
       supabase.from("products").select("*, categories(*), product_variants(*)").eq("is_featured", true).eq("is_active", true).order("sort_order"),
       supabase.from("categories").select("*").eq("is_active", true).order("sort_order"),
-    ]).then(([{ data: prods }, { data: cats }]) => {
+    ]).then(([{ data: prods }]) => {
       setFeaturedProducts(prods ?? []);
-      setCategories(cats ?? []);
-    });
+          });
   }, []);
-
-  const displayCategories = categories.length > 0 ? categories : STATIC_CATEGORIES;
 
   return (
     <>
       <HeroCarousel />
-
-      {/* CATEGORIES */}
-      <section className="py-24 bg-cream-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-gold-400 text-xs tracking-widest2 uppercase text-center mb-3">Our Collections</p>
-          <h2 className="font-serif text-4xl font-bold text-center text-charcoal-900 mb-12">Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {displayCategories.map((cat) => (
-              <Link key={cat.slug} href={`/products?category=${cat.slug}`}
-                className="group bg-white rounded-2xl p-6 text-center hover:shadow-md transition-all border border-cream-100 hover:border-gold-400">
-                <span className="text-3xl block mb-3">{CATEGORY_ICONS[cat.slug] ?? "🪑"}</span>
-                <p className="font-medium text-sm text-charcoal-900 group-hover:text-gold-500 transition-colors">{cat.name}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* CATEGORIES CAROUSEL */}
+      <CategoryCarousel />
 
       {/* PROMOTIONS */}
       <PromotionsBanner />
