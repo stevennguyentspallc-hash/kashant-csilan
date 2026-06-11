@@ -141,7 +141,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 </p>
               )}
               {product.description && (
-                <p className="text-charcoal-800/60 leading-relaxed mb-8">{product.description}</p>
+                <p className="text-charcoal-800/60 leading-relaxed mb-8 whitespace-pre-line">{product.description}</p>
               )}
 
               {/* Color picker */}
@@ -169,7 +169,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     <Ruler size={14} className="text-gold-400 mt-0.5 shrink-0"/>
                     <div>
                       <p className="text-[10px] uppercase tracking-wider text-charcoal-800/40">Dimensions</p>
-                      <p className="text-sm text-charcoal-900">{product.dimensions}</p>
+                      <p className="text-sm text-charcoal-900 whitespace-pre-line">{product.dimensions}</p>
                     </div>
                   </div>
                 )}
