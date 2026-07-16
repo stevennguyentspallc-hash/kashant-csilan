@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
+import GallerySection from "@/components/home/GallerySection";
 
 interface Banner {
   id: string; title: string; subtitle: string | null;
@@ -198,48 +199,8 @@ export default function HomePage() {
       {/* ── PROMOTIONS ───────────────────────────────────────────── */}
       <PromotionsBanner />
 
-      {/* ── GALLERY / CASE ───────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
-              <h2 className="font-serif text-4xl font-bold text-wood-900">SALON GALLERY</h2>
-            </div>
-            <Link href="/gallery"
-              className="inline-flex items-center gap-2 text-sm text-wood-500 hover:text-wood-700 transition-colors uppercase tracking-wider">
-              View More <ArrowRight size={14}/>
-            </Link>
-          </div>
-          {gallery.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-              {gallery.map((item) => (
-                <div key={item.id} className="aspect-square bg-wood-100 rounded overflow-hidden relative group cursor-pointer">
-                  <Image src={item.image_url} alt={item.caption ?? "Gallery"} fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 50vw, 33vw" quality={75}/>
-                  {item.tag && (
-                    <span className="absolute top-2 left-2 bg-white/90 text-wood-800 text-[10px] px-2 py-0.5 rounded-full">
-                      {item.tag}
-                    </span>
-                  )}
-                  <div className="absolute inset-0 bg-wood-900/0 group-hover:bg-wood-900/20 transition-all"/>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="aspect-square bg-wood-100 rounded overflow-hidden relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-serif text-5xl text-wood-200">K</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+      {/* ── GALLERY ─────────────────────────────────────────── */}
+      <GallerySection />
 
       {/* ── ABOUT + VIDEO ────────────────────────────────────────── */}
       <section className="py-20 bg-wood-50">
