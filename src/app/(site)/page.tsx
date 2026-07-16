@@ -1,89 +1,299 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Truck, Shield, Award, Headphones } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, Award, Headphones } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
-import HeroCarousel from "@/components/home/HeroCarousel";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
-import CategoryCarousel from "@/components/home/CategoryCarousel";
+
+interface Banner {
+  id: string; title: string; subtitle: string | null;
+  cta_text: string | null; cta_link: string | null;
+  image_url: string | null;
+}
+
+const STATIC_CATEGORIES = [
+  { name: "Pedicure Spa",     slug: "pedicure-spa",     icon: "💺" },
+  { name: "Furniture",        slug: "furniture",         icon: "🪑" },
+  { name: "Manicure Chair",   slug: "manicure-chair-main", icon: "💆" },
+  { name: "Custom Furniture", slug: "custom-furniture",  icon: "🔨" },
+  { name: "Head Spa",         slug: "head-spa",          icon: "🧖" },
+];
 
 const WHY_US = [
-  { icon: Truck,      title: "Nationwide Freight",   desc: "White-glove delivery to all 50 states with real-time tracking." },
-  { icon: Award,      title: "Premium Quality",      desc: "Commercial-grade materials built to last in high-traffic salons." },
-  { icon: Shield,     title: "Warranty Protected",   desc: "Every piece backed by our comprehensive warranty program." },
-  { icon: Headphones, title: "Dedicated Support",    desc: "Bilingual support team available 6 days a week." },
+  { icon: Truck,      title: "Nationwide Freight",  desc: "White-glove delivery to all 50 states." },
+  { icon: Award,      title: "Premium Quality",     desc: "Commercial-grade materials for high-traffic salons." },
+  { icon: Shield,     title: "Warranty Protected",  desc: "Every piece backed by our warranty program." },
+  { icon: Headphones, title: "Bilingual Support",   desc: "English & Vietnamese support, 6 days a week." },
 ];
 
 export default function HomePage() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [banners,  setBanners]  = useState<Banner[]>([]);
+  const [bIdx,     setBIdx]     = useState(0);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [cats,     setCats]     = useState<Category[]>([]);
+  const [activeCat,setActiveCat]= useState<string | null>(null);
+  const [paused,   setPaused]   = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    const supabase = createClient();
+    const sb = createClient();
     Promise.all([
-      supabase.from("products").select("*, categories(*), product_variants(*)").eq("is_featured", true).eq("is_active", true).order("sort_order"),
-      supabase.from("categories").select("*").eq("is_active", true).order("sort_order"),
-    ]).then(([{ data: prods }]) => {
-      setFeaturedProducts(prods ?? []);
-          });
+      sb.from("banners").select("*").eq("is_active", true).order("sort_order"),
+      sb.from("products").select("*, categories(*), product_variants(*)").eq("is_active", true).order("sort_order"),
+      sb.from("categories").select("*").eq("is_active", true).order("sort_order"),
+    ]).then(([{ data: b }, { data: p }, { data: c }]) => {
+      setBanners(b ?? []);
+      setProducts(p ?? []);
+      setCats(c ?? []);
+    });
   }, []);
+
+  const nextBanner = useCallback(() => setBIdx(i => (i + 1) % (banners.length || 1)), [banners.length]);
+  const prevBanner = () => setBIdx(i => (i - 1 + (banners.length || 1)) % (banners.length || 1));
+
+  useEffect(() => {
+    if (paused || banners.length <= 1) return;
+    timerRef.current = setInterval(nextBanner, 5000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [nextBanner, paused, banners.length]);
+
+  const banner = banners[bIdx];
+
+  // Filter products by category
+  const allCats = cats;
+  const filteredProducts = activeCat
+    ? products.filter(p => {
+        const cat = (p.categories as Category | undefined);
+        if (!cat) return false;
+        const parent = allCats.find(c => c.id === cat.parent_id);
+        return cat.slug === activeCat || parent?.slug === activeCat;
+      })
+    : products.filter(p => p.is_featured);
+
+  const displayCats = cats.filter(c => !c.parent_id);
 
   return (
     <>
-      <HeroCarousel />
-      {/* CATEGORIES CAROUSEL */}
-      <CategoryCarousel />
+      {/* ── HERO SLIDER ──────────────────────────────────────────── */}
+      <section className="relative h-screen overflow-hidden bg-wood-900"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}>
 
-      {/* PROMOTIONS */}
-      <PromotionsBanner />
+        {banners.map((b, i) => (
+          <div key={b.id} className={`absolute inset-0 transition-opacity duration-1000 ${i === bIdx ? "opacity-100" : "opacity-0"}`}>
+            {b.image_url && (
+              <Image src={b.image_url} alt={b.title} fill className="object-cover" priority={i === 0}
+                sizes="100vw" quality={85}/>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-r from-wood-900/80 via-wood-900/40 to-transparent"/>
+          </div>
+        ))}
 
-      {/* FEATURED PRODUCTS */}
-      {featuredProducts.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <p className="text-gold-400 text-xs tracking-widest2 uppercase text-center mb-3">Editor&apos;s Pick</p>
-            <h2 className="font-serif text-4xl font-bold text-center text-charcoal-900 mb-12">Featured Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredProducts.map((p) => <ProductCard key={p.id} product={p} />)}
-            </div>
-            <div className="text-center mt-12">
-              <Link href="/products"
-                className="inline-flex items-center gap-2 px-8 py-4 border border-charcoal-900 text-charcoal-900 text-sm tracking-widest uppercase hover:bg-charcoal-900 hover:text-white transition-colors rounded-full">
-                View All Products <ArrowRight size={16} />
+        {/* Fallback gradient if no banners */}
+        {banners.length === 0 && (
+          <div className="absolute inset-0 bg-gradient-to-br from-wood-900 via-wood-800 to-wood-700"/>
+        )}
+
+        {/* Content */}
+        <div className="relative h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-6 w-full">
+            <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-4">Kashant C-Silan LLC</p>
+            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6"
+              style={{ whiteSpace: "pre-line" }}>
+              {banner?.title?.replace(/\\n/g, "\n") ?? "Elevate Your Salon.\nElevate Your Brand."}
+            </h1>
+            {banner?.subtitle && (
+              <p className="text-white/70 text-lg max-w-xl leading-relaxed mb-10">{banner.subtitle}</p>
+            )}
+            <div className="flex gap-4">
+              {banner?.cta_link && banner?.cta_text && (
+                <Link href={banner.cta_link}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded">
+                  {banner.cta_text} <ArrowRight size={15}/>
+                </Link>
+              )}
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 border border-white/40 text-white text-sm tracking-widest uppercase hover:border-gold-400 hover:text-gold-400 transition-colors rounded">
+                Contact Us
               </Link>
             </div>
           </div>
-        </section>
-      )}
+        </div>
 
-      {/* WHY CHOOSE US */}
-      <section className="py-24 bg-cream-50">
+        {/* Arrows */}
+        {banners.length > 1 && (
+          <>
+            <button onClick={prevBanner}
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all">
+              <ChevronLeft size={20}/>
+            </button>
+            <button onClick={nextBanner}
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all">
+              <ChevronRight size={20}/>
+            </button>
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+              {banners.map((_, i) => (
+                <button key={i} onClick={() => setBIdx(i)}
+                  className={`transition-all rounded-full ${i === bIdx ? "w-8 h-2 bg-gold-400" : "w-2 h-2 bg-white/40"}`}/>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 right-8 flex flex-col items-center gap-2 text-white/40">
+          <span className="text-xs tracking-widest uppercase rotate-90 origin-center">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent"/>
+        </div>
+      </section>
+
+      {/* ── PRODUCT CENTER ───────────────────────────────────────── */}
+      <section className="py-20 bg-cream-50">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-gold-400 text-xs tracking-widest2 uppercase text-center mb-3">Why Kashant</p>
-          <h2 className="font-serif text-4xl font-bold text-center text-charcoal-900 mb-16">The Kashant Difference</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {WHY_US.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="text-center">
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-gold-400/10 rounded-2xl mb-4">
-                  <Icon size={24} className="text-gold-400" />
+          {/* Header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Our Collection</p>
+              <h2 className="font-serif text-4xl font-bold text-wood-900">PRODUCT CENTER</h2>
+            </div>
+            <Link href="/products"
+              className="inline-flex items-center gap-2 text-sm text-wood-500 hover:text-wood-700 transition-colors uppercase tracking-wider">
+              View More <ArrowRight size={14}/>
+            </Link>
+          </div>
+
+          {/* Category tabs */}
+          <div className="flex gap-1 border-b border-wood-200 mb-10 overflow-x-auto pb-0">
+            <button onClick={() => setActiveCat(null)}
+              className={`px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${!activeCat ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600"}`}>
+              Featured
+            </button>
+            {displayCats.map(cat => (
+              <button key={cat.id} onClick={() => setActiveCat(cat.slug)}
+                className={`px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${activeCat === cat.slug ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600"}`}>
+                {cat.name.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
+          {/* Product grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {filteredProducts.map(p => <ProductCard key={p.id} product={p}/>)}
+            </div>
+          ) : (
+            <div className="text-center py-16 text-wood-300">
+              <p className="font-serif text-2xl">No products yet</p>
+              <p className="text-sm mt-2">Add products in your admin dashboard</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── PROMOTIONS ───────────────────────────────────────────── */}
+      <PromotionsBanner />
+
+      {/* ── GALLERY / CASE ───────────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
+              <h2 className="font-serif text-4xl font-bold text-wood-900">SALON GALLERY</h2>
+            </div>
+            <Link href="/gallery"
+              className="inline-flex items-center gap-2 text-sm text-wood-500 hover:text-wood-700 transition-colors uppercase tracking-wider">
+              View More <ArrowRight size={14}/>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="aspect-square bg-wood-100 rounded overflow-hidden relative group">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-serif text-5xl text-wood-200">K</span>
                 </div>
-                <h3 className="font-semibold text-charcoal-900 mb-2">{title}</h3>
-                <p className="text-sm text-charcoal-800/60 leading-relaxed">{desc}</p>
+                <div className="absolute inset-0 bg-wood-900/0 group-hover:bg-wood-900/30 transition-all"/>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-charcoal-900 text-center">
+      {/* ── ABOUT + VIDEO ────────────────────────────────────────── */}
+      <section className="py-20 bg-wood-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-3">Who We Are</p>
+              <h2 className="font-serif text-4xl font-bold text-wood-900 mb-6">ABOUT KASHANT</h2>
+              <p className="text-wood-600 leading-relaxed mb-4">
+                Kashant C-Silan LLC was founded with one purpose: to give nail salon owners access to the same quality of furniture that luxury spas enjoy — without the luxury price tag or the hassle of overseas sourcing.
+              </p>
+              <p className="text-wood-600 leading-relaxed mb-8">
+                We source, inspect, and ship every piece directly to your salon door. Our bilingual team speaks English and Vietnamese, making it easy to communicate your exact needs.
+              </p>
+              <div className="grid grid-cols-3 gap-6 mb-8">
+                {[
+                  { value: "500+", label: "Salons Served" },
+                  { value: "50",   label: "States Covered" },
+                  { value: "8",    label: "Product Lines" },
+                ].map(({ value, label }) => (
+                  <div key={label} className="text-center p-4 bg-white rounded border border-wood-200">
+                    <p className="font-serif text-3xl font-bold text-wood-500">{value}</p>
+                    <p className="text-xs text-wood-400 uppercase tracking-wider mt-1">{label}</p>
+                  </div>
+                ))}
+              </div>
+              <Link href="/about"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded">
+                Learn More <ArrowRight size={14}/>
+              </Link>
+            </div>
+
+            {/* Video placeholder — replace YOUTUBE_ID */}
+            <div className="relative aspect-video bg-wood-900 rounded-lg overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 flex items-center justify-center text-white/30">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-2xl">▶</span>
+                  </div>
+                  <p className="text-sm">Video coming soon</p>
+                  <p className="text-xs mt-1 opacity-50">Paste YouTube link in admin</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY CHOOSE US ────────────────────────────────────────── */}
+      <section className="py-16 bg-wood-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {WHY_US.map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="text-center">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-gold-400/10 rounded mb-4">
+                  <Icon size={22} className="text-gold-400"/>
+                </div>
+                <h3 className="font-semibold text-white text-sm mb-2">{title}</h3>
+                <p className="text-white/40 text-xs leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA BANNER ───────────────────────────────────────────── */}
+      <section className="py-16 bg-wood-500 text-center">
         <div className="max-w-2xl mx-auto px-6">
-          <h2 className="font-serif text-4xl font-bold text-white mb-4">Ready to Transform Your Salon?</h2>
-          <p className="text-white/60 mb-8 leading-relaxed">Get a personalized freight quote for your location. No commitment required.</p>
+          <h2 className="font-serif text-3xl font-bold text-white mb-3">Ready to Transform Your Salon?</h2>
+          <p className="text-white/70 mb-8">Get a personalized freight quote. No commitment required.</p>
           <Link href="/products"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-gold-400 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full">
-            Get Freight Quote <ArrowRight size={16} />
+            className="inline-flex items-center gap-2 px-10 py-4 bg-white text-wood-700 text-sm tracking-widest uppercase hover:bg-wood-50 transition-colors rounded font-semibold">
+            Get Freight Quote <ArrowRight size={15}/>
           </Link>
         </div>
       </section>

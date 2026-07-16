@@ -1,32 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream-50: #FDFAF6;
-  --color-cream-100: #F9F3EA;
-  --color-cream-200: #F0E6D3;
-  --color-charcoal-800: #1C1C1E;
-  --color-charcoal-900: #111111;
+  /* Brown/Wood tone palette */
+  --color-wood-50:  #FAF8F5;
+  --color-wood-100: #F2EDE6;
+  --color-wood-200: #E0D5C5;
+  --color-wood-300: #C4A882;
+  --color-wood-400: #A67C52;
+  --color-wood-500: #8B6F47;
+  --color-wood-600: #6B5235;
+  --color-wood-700: #4A3824;
+  --color-wood-800: #2E2216;
+  --color-wood-900: #1C1410;
+
+  /* Gold accent */
+  --color-gold-300: #DFC97A;
   --color-gold-400: #C9A84C;
   --color-gold-500: #B8943F;
 
-  --font-sans: var(--font-inter), sans-serif;
+  /* Neutrals */
+  --color-cream-50:  #FAFAF8;
+  --color-cream-100: #F5F3EF;
+  --color-cream-200: #EAE6DE;
+
+  --color-charcoal-800: #1C1C1E;
+  --color-charcoal-900: #111111;
+
+  --font-sans:  var(--font-inter), sans-serif;
   --font-serif: var(--font-playfair), serif;
 
   --letter-spacing-widest2: 0.2em;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  ::selection {
-    background-color: #C9A84C;
-    color: #fff;
-  }
+  html { scroll-behavior: smooth; }
+  ::selection { background-color: #8B6F47; color: #fff; }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
