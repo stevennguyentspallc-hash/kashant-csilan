@@ -44,10 +44,12 @@ export default function HomePage() {
       sb.from("banners").select("*").eq("is_active", true).order("sort_order"),
       sb.from("products").select("*, categories(*), product_variants(*)").eq("is_active", true).order("sort_order"),
       sb.from("categories").select("*").eq("is_active", true).order("sort_order"),
-    ]).then(([{ data: b }, { data: p }, { data: c }]) => {
+      sb.from("gallery").select("id,image_url,caption,tag").eq("is_active", true).order("sort_order").order("created_at", { ascending: false }).limit(6),
+    ]).then(([{ data: b }, { data: p }, { data: c }, { data: g }]) => {
       setBanners(b ?? []);
       setProducts(p ?? []);
       setCats(c ?? []);
+      setGallery(g ?? []);
     });
   }, []);
 
@@ -209,16 +211,33 @@ export default function HomePage() {
               View More <ArrowRight size={14}/>
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="aspect-square bg-wood-100 rounded overflow-hidden relative group">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-serif text-5xl text-wood-200">K</span>
+          {gallery.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+              {gallery.map((item) => (
+                <div key={item.id} className="aspect-square bg-wood-100 rounded overflow-hidden relative group cursor-pointer">
+                  <Image src={item.image_url} alt={item.caption ?? "Gallery"} fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 50vw, 33vw" quality={75}/>
+                  {item.tag && (
+                    <span className="absolute top-2 left-2 bg-white/90 text-wood-800 text-[10px] px-2 py-0.5 rounded-full">
+                      {item.tag}
+                    </span>
+                  )}
+                  <div className="absolute inset-0 bg-wood-900/0 group-hover:bg-wood-900/20 transition-all"/>
                 </div>
-                <div className="absolute inset-0 bg-wood-900/0 group-hover:bg-wood-900/30 transition-all"/>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="aspect-square bg-wood-100 rounded overflow-hidden relative">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="font-serif text-5xl text-wood-200">K</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
