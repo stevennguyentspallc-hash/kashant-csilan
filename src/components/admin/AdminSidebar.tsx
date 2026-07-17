@@ -1,4 +1,5 @@
 "use client";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, Package, MessageSquare,
   LogOut, ExternalLink, Menu, X, Images, LayoutTemplate, Tag, FileUp, Film,
@@ -102,4 +103,5 @@ export default function AdminSidebar() {
     </>
   );
 }
+
 
