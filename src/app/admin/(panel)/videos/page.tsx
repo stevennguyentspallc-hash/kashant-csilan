@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Plus, Pencil, Trash2, X, PlayCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Film } from "lucide-react";
 
 interface Video {
   id: string; title: string; PlayCircle_url: string;
@@ -128,7 +128,7 @@ export default function AdminVideosPage() {
                       alt={v.title} className="w-full h-full object-cover opacity-80"/>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <PlayCircle size={32} className="text-white/30"/>
+                      <Film size={32} className="text-white/30"/>
                     </div>
                   )}
                   <div className="absolute inset-0 flex items-center justify-center">
