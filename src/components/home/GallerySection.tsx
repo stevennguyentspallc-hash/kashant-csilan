@@ -29,6 +29,7 @@ export default function GallerySection() {
       .then(({ data }) => {
         setItems(data ?? []);
         setLoading(false);
+        setLoading(false);
       });
   }, []);
 
