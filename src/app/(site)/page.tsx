@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
+import VideoSection from "@/components/home/VideoSection";
 import GallerySection from "@/components/home/GallerySection";
 
 interface Banner {
@@ -231,18 +232,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Video placeholder — replace YOUTUBE_ID */}
-            <div className="relative aspect-video bg-wood-900 rounded-lg overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 flex items-center justify-center text-white/30">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-2xl">▶</span>
-                  </div>
-                  <p className="text-sm">Video coming soon</p>
-                  <p className="text-xs mt-1 opacity-50">Paste YouTube link in admin</p>
-                </div>
-              </div>
-            </div>
+            <VideoSection />
           </div>
         </div>
       </section>
