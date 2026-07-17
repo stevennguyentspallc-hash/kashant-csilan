@@ -45,12 +45,10 @@ export default function HomePage() {
       sb.from("banners").select("*").eq("is_active", true).order("sort_order"),
       sb.from("products").select("*, categories(*), product_variants(*)").eq("is_active", true).order("sort_order"),
       sb.from("categories").select("*").eq("is_active", true).order("sort_order"),
-      sb.from("gallery").select("id,image_url,caption,tag").eq("is_active", true).order("sort_order").order("created_at", { ascending: false }).limit(6),
-    ]).then(([{ data: b }, { data: p }, { data: c }, { data: g }]) => {
+    ]).then(([{ data: b }, { data: p }, { data: c }]) => {
       setBanners(b ?? []);
       setProducts(p ?? []);
       setCats(c ?? []);
-      setGallery(g ?? []);
     });
   }, []);
 
