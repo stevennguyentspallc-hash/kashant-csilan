@@ -84,7 +84,7 @@ export default function HomePage() {
         )}
 
         <div className="relative h-full flex items-center">
-          <div className="max-w-screen-2xl mx-auto px-8">
+          <div className="w-full px-6">
             <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
             <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6 whitespace-pre-line">
               {banner ? banner.title.replace(/\\n/g, "\n") : "Elevate Your Salon.\nElevate Your Brand."}
@@ -134,7 +134,7 @@ export default function HomePage() {
 
       {/* ── PRODUCT CENTER ───────────────────────────────────── */}
       <section className="py-20 bg-cream-50">
-        <div className="max-w-screen-2xl mx-auto px-8">
+        <div className="w-full px-6">
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
@@ -180,7 +180,7 @@ export default function HomePage() {
 
       {/* ── ABOUT + VIDEO ────────────────────────────────────── */}
       <section className="py-20 bg-wood-50">
-        <div className="max-w-screen-2xl mx-auto px-8">
+        <div className="w-full px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
@@ -211,7 +211,7 @@ export default function HomePage() {
 
       {/* ── WHY US ───────────────────────────────────────────── */}
       <section className="py-16 bg-wood-900">
-        <div className="max-w-screen-2xl mx-auto px-8">
+        <div className="w-full px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {WHY_US.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center">
@@ -239,6 +239,7 @@ export default function HomePage() {
       </section>
 
   );\n}
+
 
 
 

@@ -157,7 +157,7 @@ function ProductsContent() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-10">
+      <div className="w-full px-6 py-10">
         {/* Search bar */}
         <div className="flex gap-3 mb-6">
           <div className="relative flex-1 max-w-md">
@@ -278,3 +278,4 @@ export default function ProductsPage() {
     </Suspense>
   );
 }
+
