@@ -127,7 +127,7 @@ function ProductsContent() {
                   const cc = products.filter(p => (p.categories as Category | undefined)?.slug === child.slug).length;
                   return (
                     <button key={child.id} onClick={() => selectCategory(child.slug)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800/60 hover:bg-cream-100 hover:text-charcoal-900"}`}>
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800/60 hover:bg-cream-100 hover:text-charcoal-900"}`}>
                       <span className="flex items-center gap-2">
                         <span className={`w-1.5 h-1.5 rounded-full ${isCA ? "bg-white" : "bg-gold-400/50"}`}/>
                         {child.name}
@@ -206,7 +206,7 @@ function ProductsContent() {
           {/* Desktop sidebar */}
           <aside className="hidden md:block w-64 shrink-0">
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-100 sticky top-24">
-              <p className="text-[10px] uppercase tracking-widest text-charcoal-800/40 px-4 mb-3">Categories</p>
+              <p className="text-xs uppercase tracking-widest text-charcoal-800/40 px-4 mb-3">Categories</p>
               <SidebarContent/>
             </div>
           </aside>
@@ -278,4 +278,5 @@ export default function ProductsPage() {
     </Suspense>
   );
 }
+
 

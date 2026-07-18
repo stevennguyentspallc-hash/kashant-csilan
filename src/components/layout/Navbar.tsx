@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0">
             <Link href="/"
-              className="px-4 py-2 text-sm text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+              className="px-4 py-2 text-base text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
               Home
             </Link>
 
@@ -73,7 +73,7 @@ export default function Navbar() {
 
             {staticLinks.slice(1).map(l => (
               <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-                className="px-4 py-2 text-sm text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+                className="px-4 py-2 text-base text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
                 {l.label}
               </Link>
             ))}
