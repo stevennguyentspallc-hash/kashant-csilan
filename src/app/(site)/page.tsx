@@ -63,7 +63,7 @@ export default function HomePage() {
     : products.filter(p => p.is_featured);
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative w-full h-screen overflow-hidden bg-wood-900"
@@ -84,7 +84,7 @@ export default function HomePage() {
         )}
 
         <div className="relative h-full flex items-center">
-          <div className="w-full px-12">
+          <div className="max-w-screen-2xl mx-auto px-8">
             <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
             <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6 whitespace-pre-line">
               {banner ? banner.title.replace(/\\n/g, "\n") : "Elevate Your Salon.\nElevate Your Brand."}
@@ -133,8 +133,8 @@ export default function HomePage() {
       </section>
 
       {/* ── PRODUCT CENTER ───────────────────────────────────── */}
-      <section className="w-full py-20 bg-cream-50">
-        <div className="w-full px-12">
+      <section className="py-20 bg-cream-50">
+        <div className="max-w-screen-2xl mx-auto px-8">
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
@@ -179,8 +179,8 @@ export default function HomePage() {
       <GallerySection />
 
       {/* ── ABOUT + VIDEO ────────────────────────────────────── */}
-      <section className="w-full py-20 bg-wood-50">
-        <div className="w-full px-12">
+      <section className="py-20 bg-wood-50">
+        <div className="max-w-screen-2xl mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
@@ -210,8 +210,8 @@ export default function HomePage() {
       </section>
 
       {/* ── WHY US ───────────────────────────────────────────── */}
-      <section className="w-full py-16 bg-wood-900">
-        <div className="w-full px-12">
+      <section className="py-16 bg-wood-900">
+        <div className="max-w-screen-2xl mx-auto px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {WHY_US.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center">
@@ -227,8 +227,8 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="w-full py-16 bg-wood-500 text-center">
-        <div className="w-full max-w-2xl mx-auto px-8">
+      <section className="py-16 bg-wood-500 text-center">
+        <div className="max-w-2xl mx-auto px-8">
           <h2 className="font-serif text-3xl font-bold text-white mb-3">Ready to Transform Your Salon?</h2>
           <p className="text-white/70 mb-8">Get a personalized freight quote. No commitment required.</p>
           <Link href="/products"

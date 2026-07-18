@@ -51,3 +51,7 @@
     padding-right: 2rem;
   }
 }
+
+@layer base {
+  body { width: 100%; overflow-x: hidden; }
+}
