@@ -80,7 +80,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO SLIDER ──────────────────────────────────────────── */}
-      <section className="relative h-screen overflow-hidden bg-wood-900"
+      <section className="relative min-h-screen h-screen overflow-hidden bg-wood-900"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}>
 
@@ -153,7 +153,7 @@ export default function HomePage() {
       </section>
 
       {/* ── PRODUCT CENTER ───────────────────────────────────────── */}
-      <section className="py-20 bg-cream-50">
+      <section className="py-20 bg-cream-50 w-full">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
