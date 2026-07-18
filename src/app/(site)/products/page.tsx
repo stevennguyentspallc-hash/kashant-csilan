@@ -150,8 +150,8 @@ function ProductsContent() {
 
   return (
     <div className="min-h-screen bg-cream-50">
-      <div className="bg-charcoal-900 pt-28 pb-12 px-6">
-        <div className="max-w-7xl mx-auto">
+      <div className="bg-charcoal-900 pt-28 pb-12 px-8 w-full">
+        <div className="w-full max-w-[1440px] mx-auto">
           <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-2">Our Catalog</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold text-white">Products</h1>
         </div>
@@ -204,7 +204,7 @@ function ProductsContent() {
 
         <div className="flex gap-8">
           {/* Desktop sidebar */}
-          <aside className="hidden md:block w-60 shrink-0">
+          <aside className="hidden md:block w-64 shrink-0">
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-100 sticky top-24">
               <p className="text-[10px] uppercase tracking-widest text-charcoal-800/40 px-4 mb-3">Categories</p>
               <SidebarContent/>
@@ -226,7 +226,7 @@ function ProductsContent() {
           )}
 
           {/* Products grid */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full">
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="font-serif text-xl font-bold text-charcoal-900">{activeName}</h2>
@@ -235,7 +235,7 @@ function ProductsContent() {
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
                     <div className="aspect-[4/3] bg-cream-200"/>

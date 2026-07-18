@@ -9,7 +9,7 @@ export default function SiteLayout({
   return (
     <>
       <Navbar />
-      <main className="w-full">{children}</main>
+      <main className="w-full min-h-screen">{children}</main>
       <Footer />
     </>
   );

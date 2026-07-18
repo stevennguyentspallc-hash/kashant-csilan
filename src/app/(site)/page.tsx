@@ -84,12 +84,10 @@ export default function HomePage() {
         )}
 
         <div className="relative h-full flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-8">
+          <div className="w-full max-w-[1440px] mx-auto px-8">
             <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
-            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6">
-              {banner ? (banner.title.includes("\n") ? banner.title.split("\n").map((line: string, i: number) => (
-                <span key={i}>{line}{i < banner.title.split("\n").length - 1 && <br/>}</span>
-              )) : banner.title) : (<>Elevate Your Salon.<br/>Elevate Your Brand.</>)}
+            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6 whitespace-pre-line">
+              {banner ? banner.title.replace(/\\n/g, "\n") : "Elevate Your Salon.\nElevate Your Brand."}
             </h1>
             {banner?.subtitle && (
               <p className="text-white/70 text-lg max-w-xl leading-relaxed mb-10">{banner.subtitle}</p>
@@ -136,7 +134,7 @@ export default function HomePage() {
 
       {/* ── PRODUCT CENTER ───────────────────────────────────── */}
       <section className="w-full py-20 bg-cream-50">
-        <div className="w-full max-w-7xl mx-auto px-8">
+        <div className="w-full max-w-[1440px] mx-auto px-8">
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
@@ -163,7 +161,7 @@ export default function HomePage() {
           </div>
 
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredProducts.map(p => <ProductCard key={p.id} product={p}/>)}
             </div>
           ) : (
@@ -182,7 +180,7 @@ export default function HomePage() {
 
       {/* ── ABOUT + VIDEO ────────────────────────────────────── */}
       <section className="w-full py-20 bg-wood-50">
-        <div className="w-full max-w-7xl mx-auto px-8">
+        <div className="w-full max-w-[1440px] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
@@ -213,7 +211,7 @@ export default function HomePage() {
 
       {/* ── WHY US ───────────────────────────────────────────── */}
       <section className="w-full py-16 bg-wood-900">
-        <div className="w-full max-w-7xl mx-auto px-8">
+        <div className="w-full max-w-[1440px] mx-auto px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {WHY_US.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center">
