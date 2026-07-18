@@ -151,7 +151,7 @@ function ProductsContent() {
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="bg-charcoal-900 pt-28 pb-12 px-8 w-full">
-        <div className="w-full max-w-[1440px] mx-auto">
+        <div className="w-full max-w-screen-2xl mx-auto">
           <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-2">Our Catalog</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold text-white">Products</h1>
         </div>
