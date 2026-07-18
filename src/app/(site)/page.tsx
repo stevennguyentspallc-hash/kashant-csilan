@@ -7,22 +7,13 @@ import { createClient } from "@/lib/supabase/client";
 import type { Product, Category } from "@/types";
 import ProductCard from "@/components/products/ProductCard";
 import PromotionsBanner from "@/components/home/PromotionsBanner";
-import VideoSection from "@/components/home/VideoSection";
 import GallerySection from "@/components/home/GallerySection";
+import VideoSection from "@/components/home/VideoSection";
 
 interface Banner {
   id: string; title: string; subtitle: string | null;
-  cta_text: string | null; cta_link: string | null;
-  image_url: string | null;
+  cta_text: string | null; cta_link: string | null; image_url: string | null;
 }
-
-const STATIC_CATEGORIES = [
-  { name: "Pedicure Spa",     slug: "pedicure-spa",     icon: "💺" },
-  { name: "Furniture",        slug: "furniture",         icon: "🪑" },
-  { name: "Manicure Chair",   slug: "manicure-chair-main", icon: "💆" },
-  { name: "Custom Furniture", slug: "custom-furniture",  icon: "🔨" },
-  { name: "Head Spa",         slug: "head-spa",          icon: "🧖" },
-];
 
 const WHY_US = [
   { icon: Truck,      title: "Nationwide Freight",  desc: "White-glove delivery to all 50 states." },
@@ -32,12 +23,12 @@ const WHY_US = [
 ];
 
 export default function HomePage() {
-  const [banners,  setBanners]  = useState<Banner[]>([]);
-  const [bIdx,     setBIdx]     = useState(0);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [cats,     setCats]     = useState<Category[]>([]);
-  const [activeCat,setActiveCat]= useState<string | null>(null);
-  const [paused,   setPaused]   = useState(false);
+  const [banners,   setBanners]   = useState<Banner[]>([]);
+  const [bIdx,      setBIdx]      = useState(0);
+  const [products,  setProducts]  = useState<Product[]>([]);
+  const [cats,      setCats]      = useState<Category[]>([]);
+  const [activeCat, setActiveCat] = useState<string | null>(null);
+  const [paused,    setPaused]    = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -45,7 +36,7 @@ export default function HomePage() {
     Promise.all([
       sb.from("banners").select("*").eq("is_active", true).order("sort_order"),
       sb.from("products").select("*, categories(*), product_variants(*)").eq("is_active", true).order("sort_order"),
-      sb.from("categories").select("*").eq("is_active", true).order("sort_order"),
+      sb.from("categories").select("*").eq("is_active", true).eq("parent_id" as string, null as unknown as string).order("sort_order"),
     ]).then(([{ data: b }, { data: p }, { data: c }]) => {
       setBanners(b ?? []);
       setProducts(p ?? []);
@@ -53,8 +44,8 @@ export default function HomePage() {
     });
   }, []);
 
-  const nextBanner = useCallback(() => setBIdx(i => (i + 1) % (banners.length || 1)), [banners.length]);
-  const prevBanner = () => setBIdx(i => (i - 1 + (banners.length || 1)) % (banners.length || 1));
+  const nextBanner = useCallback(() => setBIdx(i => (i + 1) % Math.max(banners.length, 1)), [banners.length]);
+  const prevBanner = () => setBIdx(i => (i - 1 + Math.max(banners.length, 1)) % Math.max(banners.length, 1));
 
   useEffect(() => {
     if (paused || banners.length <= 1) return;
@@ -64,57 +55,55 @@ export default function HomePage() {
 
   const banner = banners[bIdx];
 
-  // Filter products by category
-  const allCats = cats;
   const filteredProducts = activeCat
     ? products.filter(p => {
-        const cat = (p.categories as Category | undefined);
-        if (!cat) return false;
-        const parent = allCats.find(c => c.id === cat.parent_id);
-        return cat.slug === activeCat || parent?.slug === activeCat;
+        const cat = p.categories as Category | undefined;
+        return cat?.slug === activeCat || cat?.parent_id === cats.find(c => c.slug === activeCat)?.id;
       })
     : products.filter(p => p.is_featured);
 
-  const displayCats = cats.filter(c => !c.parent_id);
-
   return (
-    <>
-      {/* ── HERO SLIDER ──────────────────────────────────────────── */}
-      <section className="relative min-h-screen h-screen overflow-hidden bg-wood-900"
+    <div className="w-full overflow-x-hidden">
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="relative w-full h-screen overflow-hidden bg-wood-900"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}>
 
         {banners.map((b, i) => (
-          <div key={b.id} className={`absolute inset-0 transition-opacity duration-1000 ${i === bIdx ? "opacity-100" : "opacity-0"}`}>
+          <div key={b.id} className={"absolute inset-0 transition-opacity duration-1000 " + (i === bIdx ? "opacity-100" : "opacity-0")}>
             {b.image_url && (
-              <Image src={b.image_url} alt={b.title} fill className="object-cover" priority={i === 0}
-                sizes="100vw" quality={85}/>
+              <Image src={b.image_url} alt={b.title} fill className="object-cover" priority={i === 0} sizes="100vw" quality={85}/>
             )}
             <div className="absolute inset-0 bg-gradient-to-r from-wood-900/80 via-wood-900/40 to-transparent"/>
           </div>
         ))}
 
-        {/* Fallback gradient if no banners */}
         {banners.length === 0 && (
           <div className="absolute inset-0 bg-gradient-to-br from-wood-900 via-wood-800 to-wood-700"/>
         )}
 
-        {/* Content */}
         <div className="relative h-full flex items-center">
-          <div className="max-w-7xl mx-auto px-6 w-full">
-            <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-4">Kashant C-Silan LLC</p>
-            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6"
-              style={{ whiteSpace: "pre-line" }}>
-              {banner?.title?.replace(/\\n/g, "\n") ?? "Elevate Your Salon.\nElevate Your Brand."}
+          <div className="w-full max-w-7xl mx-auto px-8">
+            <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
+            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight max-w-3xl mb-6">
+              {banner ? (banner.title.includes("\n") ? banner.title.split("\n").map((line: string, i: number) => (
+                <span key={i}>{line}{i < banner.title.split("\n").length - 1 && <br/>}</span>
+              )) : banner.title) : (<>Elevate Your Salon.<br/>Elevate Your Brand.</>)}
             </h1>
             {banner?.subtitle && (
               <p className="text-white/70 text-lg max-w-xl leading-relaxed mb-10">{banner.subtitle}</p>
             )}
-            <div className="flex gap-4">
-              {banner?.cta_link && banner?.cta_text && (
+            <div className="flex flex-wrap gap-4">
+              {banner?.cta_link && banner?.cta_text ? (
                 <Link href={banner.cta_link}
                   className="inline-flex items-center gap-2 px-8 py-4 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded">
                   {banner.cta_text} <ArrowRight size={15}/>
+                </Link>
+              ) : (
+                <Link href="/products"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded">
+                  Shop Collection <ArrowRight size={15}/>
                 </Link>
               )}
               <Link href="/contact"
@@ -125,40 +114,32 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Arrows */}
         {banners.length > 1 && (
           <>
             <button onClick={prevBanner}
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all">
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all z-10">
               <ChevronLeft size={20}/>
             </button>
             <button onClick={nextBanner}
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all">
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-gold-400 text-white rounded-full flex items-center justify-center transition-all z-10">
               <ChevronRight size={20}/>
             </button>
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
               {banners.map((_, i) => (
                 <button key={i} onClick={() => setBIdx(i)}
-                  className={`transition-all rounded-full ${i === bIdx ? "w-8 h-2 bg-gold-400" : "w-2 h-2 bg-white/40"}`}/>
+                  className={"transition-all rounded-full " + (i === bIdx ? "w-8 h-2 bg-gold-400" : "w-2 h-2 bg-white/40")}/>
               ))}
             </div>
           </>
         )}
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 right-8 flex flex-col items-center gap-2 text-white/40">
-          <span className="text-xs tracking-widest uppercase rotate-90 origin-center">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent"/>
-        </div>
       </section>
 
-      {/* ── PRODUCT CENTER ───────────────────────────────────────── */}
-      <section className="py-20 bg-cream-50 w-full">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Header */}
-          <div className="flex items-end justify-between mb-10">
+      {/* ── PRODUCT CENTER ───────────────────────────────────── */}
+      <section className="w-full py-20 bg-cream-50">
+        <div className="w-full max-w-7xl mx-auto px-8">
+          <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Our Collection</p>
+              <p className="text-wood-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
               <h2 className="font-serif text-4xl font-bold text-wood-900">PRODUCT CENTER</h2>
             </div>
             <Link href="/products"
@@ -168,45 +149,43 @@ export default function HomePage() {
           </div>
 
           {/* Category tabs */}
-          <div className="flex gap-1 border-b border-wood-200 mb-10 overflow-x-auto pb-0">
+          <div className="flex gap-0 border-b border-wood-200 mb-10 overflow-x-auto">
             <button onClick={() => setActiveCat(null)}
-              className={`px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${!activeCat ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600"}`}>
+              className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (!activeCat ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600")}>
               Featured
             </button>
-            {displayCats.map(cat => (
+            {cats.map(cat => (
               <button key={cat.id} onClick={() => setActiveCat(cat.slug)}
-                className={`px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-all ${activeCat === cat.slug ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600"}`}>
+                className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (activeCat === cat.slug ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600")}>
                 {cat.name.toUpperCase()}
               </button>
             ))}
           </div>
 
-          {/* Product grid */}
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filteredProducts.map(p => <ProductCard key={p.id} product={p}/>)}
             </div>
           ) : (
             <div className="text-center py-16 text-wood-300">
-              <p className="font-serif text-2xl">No products yet</p>
-              <p className="text-sm mt-2">Add products in your admin dashboard</p>
+              <p className="font-serif text-xl">No products yet</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* ── PROMOTIONS ───────────────────────────────────────────── */}
+      {/* ── PROMOTIONS ───────────────────────────────────────── */}
       <PromotionsBanner />
 
-      {/* ── GALLERY ─────────────────────────────────────────── */}
+      {/* ── GALLERY ──────────────────────────────────────────── */}
       <GallerySection />
 
-      {/* ── ABOUT + VIDEO ────────────────────────────────────────── */}
-      <section className="py-20 bg-wood-50">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ── ABOUT + VIDEO ────────────────────────────────────── */}
+      <section className="w-full py-20 bg-wood-50">
+        <div className="w-full max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-3">Who We Are</p>
+              <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
               <h2 className="font-serif text-4xl font-bold text-wood-900 mb-6">ABOUT KASHANT</h2>
               <p className="text-wood-600 leading-relaxed mb-4">
                 Kashant C-Silan LLC was founded with one purpose: to give nail salon owners access to the same quality of furniture that luxury spas enjoy — without the luxury price tag or the hassle of overseas sourcing.
@@ -214,12 +193,8 @@ export default function HomePage() {
               <p className="text-wood-600 leading-relaxed mb-8">
                 We source, inspect, and ship every piece directly to your salon door. Our bilingual team speaks English and Vietnamese, making it easy to communicate your exact needs.
               </p>
-              <div className="grid grid-cols-3 gap-6 mb-8">
-                {[
-                  { value: "500+", label: "Salons Served" },
-                  { value: "50",   label: "States Covered" },
-                  { value: "8",    label: "Product Lines" },
-                ].map(({ value, label }) => (
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                {[{ value: "500+", label: "Salons Served" }, { value: "50", label: "States Covered" }, { value: "8", label: "Product Lines" }].map(({ value, label }) => (
                   <div key={label} className="text-center p-4 bg-white rounded border border-wood-200">
                     <p className="font-serif text-3xl font-bold text-wood-500">{value}</p>
                     <p className="text-xs text-wood-400 uppercase tracking-wider mt-1">{label}</p>
@@ -231,15 +206,14 @@ export default function HomePage() {
                 Learn More <ArrowRight size={14}/>
               </Link>
             </div>
-
             <VideoSection />
           </div>
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US ────────────────────────────────────────── */}
-      <section className="py-16 bg-wood-900">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ── WHY US ───────────────────────────────────────────── */}
+      <section className="w-full py-16 bg-wood-900">
+        <div className="w-full max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {WHY_US.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center">
@@ -254,9 +228,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────── */}
-      <section className="py-16 bg-wood-500 text-center">
-        <div className="max-w-2xl mx-auto px-6">
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <section className="w-full py-16 bg-wood-500 text-center">
+        <div className="w-full max-w-2xl mx-auto px-8">
           <h2 className="font-serif text-3xl font-bold text-white mb-3">Ready to Transform Your Salon?</h2>
           <p className="text-white/70 mb-8">Get a personalized freight quote. No commitment required.</p>
           <Link href="/products"
@@ -265,6 +239,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-    </>
+
+    </div>
   );
 }
