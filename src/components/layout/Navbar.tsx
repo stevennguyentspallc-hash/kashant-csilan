@@ -59,34 +59,34 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0">
+          <nav className="hidden lg:flex items-center gap-0.5">
             <Link href="/"
-              className="px-4 py-2 text-base text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+              className="px-4 py-2.5 text-base font-medium text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
               Home
             </Link>
 
             {/* Products */}
             <button onClick={() => { setMenuOpen(!menuOpen); setExpandedId(null); }}
-              className={`flex items-center gap-1 px-4 py-2 text-sm transition-colors rounded ${menuOpen ? "text-wood-500 bg-wood-50" : "text-wood-700 hover:text-wood-500 hover:bg-wood-50"}`}>
-              Products <ChevronDown size={13} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}/>
+              className={`flex items-center gap-1 px-4 py-2.5 text-base font-medium transition-colors rounded ${menuOpen ? "text-wood-500 bg-wood-50" : "text-wood-700 hover:text-wood-500 hover:bg-wood-50"}`}>
+              Products <ChevronDown size={15} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}/>
             </button>
 
             {staticLinks.slice(1).map(l => (
               <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-                className="px-4 py-2 text-base text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+                className="px-4 py-2.5 text-base font-medium text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
                 {l.label}
               </Link>
             ))}
           </nav>
 
           {/* Right */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-5">
             <a href="tel:+18326623909"
-              className="flex items-center gap-2 text-sm font-medium text-wood-700 hover:text-wood-500 transition-colors">
-              <Phone size={14}/> (832) 662-3909
+              className="flex items-center gap-2 text-base font-medium text-wood-700 hover:text-wood-500 transition-colors">
+              <Phone size={16}/> (832) 662-3909
             </a>
             <Link href="/products?category=pedicure-spa"
-              className="px-5 py-2 bg-wood-500 text-white text-xs tracking-widest uppercase rounded hover:bg-wood-600 transition-colors">
+              className="px-6 py-2.5 bg-wood-500 text-white text-sm font-medium tracking-widest uppercase rounded hover:bg-wood-600 transition-colors">
               Get Quote
             </Link>
           </div>

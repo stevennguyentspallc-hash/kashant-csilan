@@ -94,7 +94,7 @@ export default function HomePage() {
         <div className="relative h-full flex items-center px-8 lg:px-16">
           <div className="max-w-3xl">
             <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
-            <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight mb-6 whitespace-pre-line">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 whitespace-pre-line">
               {getBannerTitle()}
             </h1>
             {banner?.subtitle && (

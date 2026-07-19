@@ -92,9 +92,9 @@ function ProductsContent() {
   });
 
   const SidebarContent = () => (
-    <div className="space-y-0.5">
+    <div className="space-y-1">
       <button onClick={() => selectCategory(null)}
-        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center justify-between ${!urlCategory ? "bg-charcoal-900 text-white" : "text-charcoal-800 hover:bg-cream-100"}`}>
+        className={`w-full text-left px-4 py-3 rounded-xl text-[15px] font-medium transition-all flex items-center justify-between ${!urlCategory ? "bg-charcoal-900 text-white" : "text-charcoal-800 hover:bg-cream-100"}`}>
         All Products
         <span className="text-xs opacity-40">{products.length}</span>
       </button>
@@ -110,13 +110,13 @@ function ProductsContent() {
           <div key={parent.id}>
             <div className={`flex items-center rounded-xl ${isAct ? "bg-gold-400/10" : "hover:bg-cream-100"}`}>
               <button onClick={() => selectCategory(parent.slug)}
-                className={`flex-1 text-left px-4 py-2.5 text-sm font-semibold transition-colors ${isAct ? "text-gold-500" : "text-charcoal-900"}`}>
+                className={`flex-1 text-left px-4 py-3 text-[15px] font-semibold transition-colors ${isAct ? "text-gold-500" : "text-charcoal-900"}`}>
                 {parent.name}
                 <span className="float-right text-xs font-normal opacity-30 mt-0.5">{cnt}</span>
               </button>
               {parent.children.length > 0 && (
                 <button onClick={() => toggle(parent.id)} className="p-2 text-charcoal-800/30 hover:text-charcoal-900">
-                  {isExp ? <ChevronDown size={13}/> : <ChevronRight size={13}/>}
+                  {isExp ? <ChevronDown size={15}/> : <ChevronRight size={15}/>}
                 </button>
               )}
             </div>
@@ -127,12 +127,12 @@ function ProductsContent() {
                   const cc = products.filter(p => (p.categories as Category | undefined)?.slug === child.slug).length;
                   return (
                     <button key={child.id} onClick={() => selectCategory(child.slug)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800/60 hover:bg-cream-100 hover:text-charcoal-900"}`}>
+                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800/60 hover:bg-cream-100 hover:text-charcoal-900"}`}>
                       <span className="flex items-center gap-2">
                         <span className={`w-1.5 h-1.5 rounded-full ${isCA ? "bg-white" : "bg-gold-400/50"}`}/>
                         {child.name}
                       </span>
-                      <span className={`text-[10px] ${isCA ? "opacity-70" : "opacity-30"}`}>{cc}</span>
+                      <span className={`text-xs ${isCA ? "opacity-70" : "opacity-30"}`}>{cc}</span>
                     </button>
                   );
                 })}
@@ -204,9 +204,9 @@ function ProductsContent() {
 
         <div className="flex gap-8">
           {/* Desktop sidebar */}
-          <aside className="hidden md:block w-64 shrink-0">
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-100 sticky top-24">
-              <p className="text-xs uppercase tracking-widest text-charcoal-800/40 px-4 mb-3">Categories</p>
+          <aside className="hidden md:block w-72 shrink-0">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-cream-100 sticky top-24">
+              <p className="text-sm font-semibold uppercase tracking-wide text-charcoal-800/50 px-4 mb-3">Categories</p>
               <SidebarContent/>
             </div>
           </aside>
