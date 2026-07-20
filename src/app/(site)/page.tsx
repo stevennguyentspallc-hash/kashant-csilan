@@ -76,7 +76,7 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section
-        className="relative h-[75vh] overflow-hidden bg-wood-900"
+        className="relative h-[55vh] min-h-[480px] overflow-hidden bg-wood-900"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >

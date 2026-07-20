@@ -42,20 +42,20 @@ export default function Navbar() {
   const kids    = (pid: string) => categories.filter(c => c.parent_id === pid);
 
   const navBg = scrolled || menuOpen || mobileOpen
-    ? "bg-white shadow-sm py-3"
-    : "bg-white/95 py-4";
+    ? "bg-white shadow-sm py-4"
+    : "bg-white/95 py-5";
 
   return (
     <>
       {menuOpen && <div className="fixed inset-0 z-40" onClick={() => { setMenuOpen(false); setExpandedId(null); }} />}
 
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-wood-100 ${navBg}`}>
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="w-full px-6 lg:px-16 flex items-center justify-between">
 
           {/* Logo */}
           <Link href="/" onClick={() => { setMenuOpen(false); setMobileOpen(false); }}>
-            <Image src="/logo.png" alt="Kashant" width={160} height={56}
-              className="h-12 w-auto object-contain" priority />
+            <Image src="/logo.png" alt="Kashant" width={180} height={64}
+              className="h-14 w-auto object-contain" priority />
           </Link>
 
           {/* Desktop nav */}
@@ -86,7 +86,7 @@ export default function Navbar() {
               <Phone size={16}/> (832) 662-3909
             </a>
             <Link href="/products?category=pedicure-spa"
-              className="px-6 py-2.5 bg-wood-500 text-white text-sm font-medium tracking-widest uppercase rounded hover:bg-wood-600 transition-colors">
+              className="px-7 py-3 bg-wood-500 text-white text-sm font-semibold tracking-widest uppercase rounded hover:bg-wood-600 transition-colors">
               Get Quote
             </Link>
           </div>
@@ -101,7 +101,7 @@ export default function Navbar() {
         {/* Mega menu */}
         {menuOpen && (
           <div className="hidden lg:flex absolute top-full left-0 right-0 bg-white shadow-xl border-t border-wood-100 z-50">
-            <div className="max-w-7xl mx-auto w-full flex">
+            <div className="w-full px-6 lg:px-16 flex">
               {/* Left */}
               <div className="w-72 border-r border-wood-100 py-4 max-h-[480px] overflow-y-auto">
                 <Link href="/products" onClick={() => { setMenuOpen(false); }}
