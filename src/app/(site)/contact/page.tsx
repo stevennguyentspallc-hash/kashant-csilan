@@ -49,10 +49,12 @@ export default function ContactPage() {
     }
   };
 
+  const inputClass = "w-full bg-wood-900 border border-wood-300 rounded-lg px-4 py-2.5 text-sm text-charcoal-900 placeholder:text-charcoal-800/40 focus:outline-none focus:border-gold-400 transition-colors";
+
   return (
     <div className="min-h-screen bg-cream-50">
       {/* Header */}
-      <section className="bg-charcoal-900 pt-32 pb-20 px-6 text-center">
+      <section className="bg-wood-900 pt-32 pb-20 px-6 text-center">
         <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-4">
           Get in Touch
         </p>
@@ -82,8 +84,8 @@ export default function ContactPage() {
               {
                 icon: Mail,
                 label: "Email",
-                value: "info@kashantcsilan.com",
-                href: "mailto:info@kashantcsilan.com",
+                value: "info@sliansolutions.com",
+                href: "mailto:info@sliansolutions.com",
               },
               {
                 icon: Clock,
@@ -97,7 +99,7 @@ export default function ContactPage() {
                   <Icon size={18} className="text-gold-400" />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-charcoal-800/40 mb-0.5">
+                  <p className="text-xs uppercase tracking-widest text-charcoal-800/60 mb-0.5">
                     {label}
                   </p>
                   {href ? (
@@ -111,7 +113,7 @@ export default function ContactPage() {
               </div>
             ))}
 
-            <div className="pt-4 p-6 bg-charcoal-900 rounded-2xl text-white">
+            <div className="pt-4 p-6 bg-wood-900 border border-wood-800 rounded-2xl text-white">
               <p className="text-xs uppercase tracking-widest text-gold-400 mb-2">
                 Bilingual Support
               </p>
@@ -123,12 +125,12 @@ export default function ContactPage() {
           </div>
 
           {/* Form */}
-          <div className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-sm border border-cream-100">
+          <div className="lg:col-span-2 bg-wood-50 rounded-3xl p-8 shadow-sm border border-wood-800">
             {success ? (
               <div className="h-full flex flex-col items-center justify-center py-12 text-center">
                 <CheckCircle size={52} className="text-gold-400 mb-4" />
-                <h3 className="font-serif text-2xl font-bold mb-2">Message Sent!</h3>
-                <p className="text-charcoal-800/60 text-sm">
+                <h3 className="font-serif text-2xl font-bold text-charcoal-900 mb-2">Message Sent!</h3>
+                <p className="text-charcoal-800/70 text-sm">
                   We&apos;ll get back to you within 1 business day.
                 </p>
               </div>
@@ -139,71 +141,71 @@ export default function ContactPage() {
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">
+                    <div className="bg-red-950/40 border border-red-500/40 text-red-300 text-sm px-4 py-3 rounded-lg">
                       {error}
                     </div>
                   )}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
+                      <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
                         Full Name *
                       </label>
                       <input
                         name="full_name" required value={form.full_name}
                         onChange={handleChange}
-                        className="w-full border border-cream-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 transition-colors"
+                        className={inputClass}
                         placeholder="Jane Smith"
                       />
                     </div>
                     <div>
-                      <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
+                      <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
                         Salon Name
                       </label>
                       <input
                         name="business_name" value={form.business_name}
                         onChange={handleChange}
-                        className="w-full border border-cream-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 transition-colors"
+                        className={inputClass}
                         placeholder="Luxury Nails & Spa"
                       />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
+                      <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
                         Email *
                       </label>
                       <input
                         name="email" type="email" required value={form.email}
                         onChange={handleChange}
-                        className="w-full border border-cream-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 transition-colors"
+                        className={inputClass}
                         placeholder="jane@salon.com"
                       />
                     </div>
                     <div>
-                      <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
+                      <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
                         Phone
                       </label>
                       <input
                         name="phone" value={form.phone} onChange={handleChange}
-                        className="w-full border border-cream-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 transition-colors"
+                        className={inputClass}
                         placeholder="(555) 000-0000"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
+                    <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
                       Message *
                     </label>
                     <textarea
                       name="message" required rows={5} value={form.message}
                       onChange={handleChange}
-                      className="w-full border border-cream-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 transition-colors resize-none"
+                      className={inputClass + " resize-none"}
                       placeholder="Tell us about your salon, what products you're interested in, your timeline..."
                     />
                   </div>
                   <button
                     type="submit" disabled={loading}
-                    className="w-full py-4 bg-charcoal-900 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full disabled:opacity-50"
+                    className="w-full py-4 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full disabled:opacity-50"
                   >
                     {loading ? "Sending..." : "Send Message"}
                   </button>
