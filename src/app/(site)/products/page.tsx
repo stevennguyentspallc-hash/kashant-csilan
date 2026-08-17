@@ -94,11 +94,11 @@ function ProductsContent() {
   const SidebarContent = () => (
     <div className="space-y-1">
       <button onClick={() => selectCategory(null)}
-        className={`w-full text-left px-4 py-3.5 rounded-xl text-base font-medium transition-all flex items-center justify-between ${!urlCategory ? "bg-charcoal-900 text-white" : "text-charcoal-800 hover:bg-cream-100"}`}>
+        className={`w-full text-left px-4 py-3.5 rounded-xl text-base font-medium transition-all flex items-center justify-between ${!urlCategory ? "bg-wood-500 text-white" : "text-charcoal-800 hover:bg-wood-100"}`}>
         All Products
-        <span className="text-sm opacity-40">{products.length}</span>
+        <span className="text-sm opacity-60">{products.length}</span>
       </button>
-      <div className="h-px bg-cream-200 my-2" />
+      <div className="h-px bg-wood-800 my-2" />
       {tree.map(parent => {
         const isExp = expanded.has(parent.id);
         const isAct = urlCategory === parent.slug;
@@ -108,14 +108,14 @@ function ProductsContent() {
         }).length;
         return (
           <div key={parent.id}>
-            <div className={`flex items-center rounded-xl ${isAct ? "bg-gold-400/10" : "hover:bg-cream-100"}`}>
+            <div className={`flex items-center rounded-xl ${isAct ? "bg-gold-400/10" : "hover:bg-wood-100"}`}>
               <button onClick={() => selectCategory(parent.slug)}
-                className={`flex-1 text-left px-4 py-3.5 text-base font-semibold transition-colors ${isAct ? "text-gold-500" : "text-charcoal-900"}`}>
+                className={`flex-1 text-left px-4 py-3.5 text-base font-semibold transition-colors ${isAct ? "text-gold-400" : "text-charcoal-900"}`}>
                 {parent.name}
-                <span className="float-right text-sm font-normal opacity-30 mt-0.5">{cnt}</span>
+                <span className="float-right text-sm font-normal opacity-50 mt-0.5">{cnt}</span>
               </button>
               {parent.children.length > 0 && (
-                <button onClick={() => toggle(parent.id)} className="p-2 text-charcoal-800/30 hover:text-charcoal-900">
+                <button onClick={() => toggle(parent.id)} className="p-2 text-charcoal-800 hover:text-white">
                   {isExp ? <ChevronDown size={18}/> : <ChevronRight size={18}/>}
                 </button>
               )}
@@ -127,12 +127,12 @@ function ProductsContent() {
                   const cc = products.filter(p => (p.categories as Category | undefined)?.slug === child.slug).length;
                   return (
                     <button key={child.id} onClick={() => selectCategory(child.slug)}
-                      className={`w-full text-left px-3 py-3 rounded-lg text-[15px] font-medium transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800/60 hover:bg-cream-100 hover:text-charcoal-900"}`}>
+                      className={`w-full text-left px-3 py-3 rounded-lg text-[15px] font-medium transition-all flex items-center justify-between ${isCA ? "bg-gold-400 text-white font-medium" : "text-charcoal-800 hover:bg-wood-100 hover:text-white"}`}>
                       <span className="flex items-center gap-2">
-                        <span className={`w-1.5 h-1.5 rounded-full ${isCA ? "bg-white" : "bg-gold-400/50"}`}/>
+                        <span className={`w-1.5 h-1.5 rounded-full ${isCA ? "bg-white" : "bg-gold-400/60"}`}/>
                         {child.name}
                       </span>
-                      <span className={`text-sm ${isCA ? "opacity-70" : "opacity-30"}`}>{cc}</span>
+                      <span className={`text-sm ${isCA ? "opacity-80" : "opacity-40"}`}>{cc}</span>
                     </button>
                   );
                 })}
@@ -150,7 +150,7 @@ function ProductsContent() {
 
   return (
     <div className="min-h-screen bg-cream-50">
-      <div className="bg-charcoal-900 pt-28 pb-12">
+      <div className="bg-wood-900 pt-28 pb-12">
         <div className="w-full max-w-screen-2xl mx-auto">
           <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-2">Our Catalog</p>
           <h1 className="font-serif text-4xl md:text-5xl font-bold text-white">Products</h1>
@@ -161,25 +161,25 @@ function ProductsContent() {
         {/* Search bar */}
         <div className="flex gap-3 mb-6">
           <div className="relative flex-1 max-w-md">
-            <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-800/40"/>
+            <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-800/60"/>
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => { if (e.key === "Enter") handleSearch(search); }}
               placeholder="Search products... (Enter to search)"
-              className="w-full pl-10 pr-10 py-3 bg-white border border-cream-200 rounded-xl text-sm focus:outline-none focus:border-gold-400"/>
+              className="w-full pl-10 pr-10 py-3 bg-wood-50 border border-wood-800 rounded-xl text-sm text-charcoal-900 placeholder:text-charcoal-800/50 focus:outline-none focus:border-gold-400"/>
             {search && (
-              <button onClick={clearSearch} className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-800/30 hover:text-charcoal-900">
+              <button onClick={clearSearch} className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-800/60 hover:text-white">
                 <X size={14}/>
               </button>
             )}
           </div>
           <button onClick={() => handleSearch(search)}
-            className="px-5 py-3 bg-charcoal-900 text-white text-sm rounded-xl hover:bg-gold-500 transition-colors">
+            className="px-5 py-3 bg-wood-500 text-white text-sm rounded-xl hover:bg-wood-600 transition-colors">
             Search
           </button>
           <button onClick={() => setDrawer(true)}
-            className="md:hidden flex items-center gap-2 px-4 py-3 bg-white border border-cream-200 rounded-xl text-sm hover:border-gold-400 transition-colors">
+            className="md:hidden flex items-center gap-2 px-4 py-3 bg-wood-50 border border-wood-800 rounded-xl text-sm text-charcoal-900 hover:border-gold-400 transition-colors">
             <SlidersHorizontal size={15}/> Filter
           </button>
         </div>
@@ -188,15 +188,15 @@ function ProductsContent() {
         {(urlCategory || urlSearch) && (
           <div className="flex flex-wrap gap-2 mb-6">
             {urlCategory && (
-              <span className="inline-flex items-center gap-1.5 bg-gold-400/10 text-gold-500 text-xs px-3 py-1.5 rounded-full">
+              <span className="inline-flex items-center gap-1.5 bg-gold-400/10 text-gold-400 text-xs px-3 py-1.5 rounded-full">
                 Category: {allCats.find(c => c.slug === urlCategory)?.name}
-                <button onClick={clearCategory} className="hover:text-gold-600"><X size={11}/></button>
+                <button onClick={clearCategory} className="hover:text-gold-300"><X size={11}/></button>
               </span>
             )}
             {urlSearch && (
-              <span className="inline-flex items-center gap-1.5 bg-charcoal-900/10 text-charcoal-800 text-xs px-3 py-1.5 rounded-full">
+              <span className="inline-flex items-center gap-1.5 bg-wood-50 border border-wood-800 text-charcoal-800 text-xs px-3 py-1.5 rounded-full">
                 Search: "{urlSearch}"
-                <button onClick={clearSearch} className="hover:text-charcoal-900"><X size={11}/></button>
+                <button onClick={clearSearch} className="hover:text-white"><X size={11}/></button>
               </span>
             )}
           </div>
@@ -205,8 +205,8 @@ function ProductsContent() {
         <div className="flex gap-8">
           {/* Desktop sidebar */}
           <aside className="hidden md:block w-80 shrink-0">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-cream-100 sticky top-24">
-              <p className="text-base font-semibold uppercase tracking-wide text-charcoal-800/50 px-4 mb-3">Categories</p>
+            <div className="bg-wood-50 rounded-2xl p-6 shadow-sm border border-wood-800 sticky top-24">
+              <p className="text-base font-semibold uppercase tracking-wide text-charcoal-800/70 px-4 mb-3">Categories</p>
               <SidebarContent/>
             </div>
           </aside>
@@ -214,11 +214,11 @@ function ProductsContent() {
           {/* Mobile drawer */}
           {drawer && (
             <div className="md:hidden fixed inset-0 z-50">
-              <div className="absolute inset-0 bg-black/40" onClick={() => setDrawer(false)}/>
-              <div className="absolute left-0 top-0 h-full w-80 bg-white shadow-xl overflow-y-auto">
-                <div className="flex items-center justify-between p-4 border-b border-cream-100">
+              <div className="absolute inset-0 bg-black/60" onClick={() => setDrawer(false)}/>
+              <div className="absolute left-0 top-0 h-full w-80 bg-wood-900 shadow-xl overflow-y-auto">
+                <div className="flex items-center justify-between p-4 border-b border-wood-800">
                   <p className="font-semibold text-charcoal-900 text-base">Categories</p>
-                  <button onClick={() => setDrawer(false)} className="text-charcoal-800/40 text-lg">✕</button>
+                  <button onClick={() => setDrawer(false)} className="text-charcoal-800 text-lg">✕</button>
                 </div>
                 <div className="p-4"><SidebarContent/></div>
               </div>
@@ -230,18 +230,18 @@ function ProductsContent() {
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="font-serif text-xl font-bold text-charcoal-900">{activeName}</h2>
-                <p className="text-sm text-charcoal-800/40 mt-0.5">{filtered.length} products</p>
+                <p className="text-sm text-charcoal-800/60 mt-0.5">{filtered.length} products</p>
               </div>
             </div>
 
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
-                    <div className="aspect-[4/3] bg-cream-200"/>
+                  <div key={i} className="bg-wood-50 rounded-2xl overflow-hidden shadow-sm animate-pulse border border-wood-800">
+                    <div className="aspect-[4/3] bg-wood-100"/>
                     <div className="p-5 space-y-3">
-                      <div className="h-4 bg-cream-200 rounded w-3/4"/>
-                      <div className="h-3 bg-cream-200 rounded w-1/2"/>
+                      <div className="h-4 bg-wood-100 rounded w-3/4"/>
+                      <div className="h-3 bg-wood-100 rounded w-1/2"/>
                     </div>
                   </div>
                 ))}
@@ -251,11 +251,11 @@ function ProductsContent() {
                 {filtered.map(p => <ProductCard key={p.id} product={p}/>)}
               </div>
             ) : (
-              <div className="text-center py-24 bg-white rounded-2xl border border-cream-100">
-                <p className="font-serif text-2xl text-charcoal-800/30 mb-2">No products found</p>
-                <p className="text-sm text-charcoal-800/20 mb-4">Try a different keyword or category</p>
+              <div className="text-center py-24 bg-wood-50 rounded-2xl border border-wood-800">
+                <p className="font-serif text-2xl text-charcoal-800/50 mb-2">No products found</p>
+                <p className="text-sm text-charcoal-800/40 mb-4">Try a different keyword or category</p>
                 <button onClick={() => { clearSearch(); clearCategory(); }}
-                  className="px-6 py-2.5 bg-charcoal-900 text-white text-xs tracking-widest uppercase rounded-full hover:bg-gold-500 transition-colors">
+                  className="px-6 py-2.5 bg-wood-500 text-white text-xs tracking-widest uppercase rounded-full hover:bg-wood-600 transition-colors">
                   Clear Filters
                 </button>
               </div>
@@ -270,7 +270,7 @@ function ProductsContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-gold-400 border-t-transparent rounded-full animate-spin"/>
       </div>
     }>
