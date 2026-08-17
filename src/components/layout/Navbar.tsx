@@ -54,8 +54,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" onClick={() => { setMenuOpen(false); setMobileOpen(false); }}>
-            <Image src="/logo.png" alt="Kashant" width={180} height={64}
-              className="h-14 w-auto object-contain" priority />
+            <Image src="/logo.png" alt="Slian Solutions" width={330} height={40}
+              className="h-10 w-auto object-contain" priority />
           </Link>
 
           {/* Desktop nav */}
@@ -145,7 +145,7 @@ export default function Navbar() {
               </div>
               {/* Right panel */}
               <div className="flex-1 p-10 bg-wood-50 flex flex-col justify-center">
-                <p className="text-xs uppercase tracking-widest text-wood-400 mb-2">Kashant C-Silan LLC</p>
+                <p className="text-xs uppercase tracking-widest text-wood-400 mb-2">Slian Solutions</p>
                 <h3 className="font-serif text-3xl font-bold text-wood-900 mb-3">Premium Nail Salon Furniture</h3>
                 <p className="text-sm text-wood-600 leading-relaxed mb-8 max-w-sm">
                   From pedicure spa chairs to custom furniture — everything your salon needs, delivered nationwide.
