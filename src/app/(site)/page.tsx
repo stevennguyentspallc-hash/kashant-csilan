@@ -130,26 +130,62 @@ export default function HomePage() {
         )}
       </section>
 
+      {/* CATEGORY GRID */}
+      <section className="py-16 bg-wood-900 border-t border-wood-800">
+        <div className="px-6 lg:px-16">
+          <div className="mb-8">
+            <p className="text-gold-400 text-xs tracking-widest uppercase mb-2">Browse by category</p>
+            <h2 className="font-serif text-3xl font-bold text-charcoal-900">Shop by category</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {cats.map(cat => {
+              const catProduct = products.find(p => (p.categories as Category | undefined)?.id === cat.id);
+              const variants = catProduct?.product_variants as { image_url?: string }[] | undefined;
+              const thumb = variants?.[0]?.image_url;
+              const count = products.filter(p => (p.categories as Category | undefined)?.id === cat.id).length;
+              return (
+                <Link key={cat.id} href={`/products?category=${cat.slug}`}
+                  className="group relative aspect-square rounded overflow-hidden border border-wood-800 bg-wood-50">
+                  {thumb ? (
+                    <Image src={thumb} alt={cat.name} fill sizes="220px"
+                      className="object-cover opacity-70 group-hover:opacity-95 transition-opacity duration-300" />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-charcoal-800 text-xs px-3 text-center">
+                      {cat.name}
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-wood-900/95 via-wood-900/10 to-transparent" />
+                  <div className="absolute left-3 bottom-3 right-3">
+                    <h4 className="text-charcoal-900 text-sm font-semibold">{cat.name}</h4>
+                    <span className="text-charcoal-800 text-xs">{count} products</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* PRODUCT CENTER */}
       <section className="py-20 bg-cream-50">
         <div className="px-6 lg:px-16">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-wood-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
-              <h2 className="font-serif text-4xl font-bold text-wood-900">PRODUCT CENTER</h2>
+              <p className="text-gold-400 text-xs tracking-widest uppercase mb-2">Our Collection</p>
+              <h2 className="font-serif text-4xl font-bold text-charcoal-900">PRODUCT CENTER</h2>
             </div>
-            <Link href="/products" className="inline-flex items-center gap-2 text-sm text-wood-500 hover:text-wood-700 transition-colors uppercase tracking-wider">
+            <Link href="/products" className="inline-flex items-center gap-2 text-sm text-gold-400 hover:text-gold-300 transition-colors uppercase tracking-wider">
               View More <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="flex gap-0 border-b border-wood-200 mb-10 overflow-x-auto">
+          <div className="flex gap-0 border-b border-wood-800 mb-10 overflow-x-auto">
             <button onClick={() => setActiveCat(null)}
-              className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (!activeCat ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600")}>
+              className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (!activeCat ? "border-wood-500 text-charcoal-900" : "border-transparent text-charcoal-800 hover:text-white")}>
               Featured
             </button>
             {cats.map(cat => (
               <button key={cat.id} onClick={() => setActiveCat(cat.slug)}
-                className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (activeCat === cat.slug ? "border-wood-500 text-wood-700" : "border-transparent text-wood-400 hover:text-wood-600")}>
+                className={"px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-all " + (activeCat === cat.slug ? "border-wood-500 text-charcoal-900" : "border-transparent text-charcoal-800 hover:text-white")}>
                 {cat.name.toUpperCase()}
               </button>
             ))}
@@ -159,7 +195,7 @@ export default function HomePage() {
               {filteredProducts.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
           ) : (
-            <div className="text-center py-16 text-wood-300">
+            <div className="text-center py-16 text-charcoal-800">
               <p className="font-serif text-xl">No products yet</p>
             </div>
           )}
@@ -177,19 +213,19 @@ export default function HomePage() {
         <div className="px-6 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
-              <h2 className="font-serif text-4xl font-bold text-wood-900 mb-6">ABOUT SLIAN SOLUTIONS</h2>
-              <p className="text-wood-600 leading-relaxed mb-4">
+              <p className="text-gold-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
+              <h2 className="font-serif text-4xl font-bold text-charcoal-900 mb-6">ABOUT SLIAN SOLUTIONS</h2>
+              <p className="text-charcoal-800 leading-relaxed mb-4">
                 Slian Solutions was founded with one purpose: to give nail salon owners access to the same quality of furniture that luxury spas enjoy — without the luxury price tag or the hassle of overseas sourcing.
               </p>
-              <p className="text-wood-600 leading-relaxed mb-8">
+              <p className="text-charcoal-800 leading-relaxed mb-8">
                 We source, inspect, and ship every piece directly to your salon door. Our bilingual team speaks English and Vietnamese, making it easy to communicate your exact needs.
               </p>
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[{ value: "500+", label: "Salons Served" }, { value: "50", label: "States Covered" }, { value: "8", label: "Product Lines" }].map(({ value, label }) => (
-                  <div key={label} className="text-center p-4 bg-white rounded border border-wood-200">
-                    <p className="font-serif text-3xl font-bold text-wood-500">{value}</p>
-                    <p className="text-xs text-wood-400 uppercase tracking-wider mt-1">{label}</p>
+                  <div key={label} className="text-center p-4 bg-wood-900 rounded border border-wood-800">
+                    <p className="font-serif text-3xl font-bold text-gold-400">{value}</p>
+                    <p className="text-xs text-charcoal-800 uppercase tracking-wider mt-1">{label}</p>
                   </div>
                 ))}
               </div>
