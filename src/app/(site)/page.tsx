@@ -93,7 +93,7 @@ export default function HomePage() {
         )}
         <div className="relative h-full flex items-center px-8 lg:px-16">
           <div className="max-w-3xl">
-            <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Kashant C-Silan LLC</p>
+            <p className="text-gold-400 text-xs tracking-widest uppercase mb-4">Slian Solutions</p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 whitespace-pre-line">
               {getBannerTitle()}
             </h1>
@@ -178,9 +178,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-wood-400 text-xs tracking-widest uppercase mb-3">Who We Are</p>
-              <h2 className="font-serif text-4xl font-bold text-wood-900 mb-6">ABOUT KASHANT</h2>
+              <h2 className="font-serif text-4xl font-bold text-wood-900 mb-6">ABOUT SLIAN SOLUTIONS</h2>
               <p className="text-wood-600 leading-relaxed mb-4">
-                Kashant C-Silan LLC was founded with one purpose: to give nail salon owners access to the same quality of furniture that luxury spas enjoy — without the luxury price tag or the hassle of overseas sourcing.
+                Slian Solutions was founded with one purpose: to give nail salon owners access to the same quality of furniture that luxury spas enjoy — without the luxury price tag or the hassle of overseas sourcing.
               </p>
               <p className="text-wood-600 leading-relaxed mb-8">
                 We source, inspect, and ship every piece directly to your salon door. Our bilingual team speaks English and Vietnamese, making it easy to communicate your exact needs.
