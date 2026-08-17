@@ -61,18 +61,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     <>
       <div className="min-h-screen bg-cream-50 pt-24 pb-24">
         <div className="max-w-7xl mx-auto px-6">
-          <Link href="/products" className="inline-flex items-center gap-2 text-sm text-charcoal-800/50 hover:text-gold-400 transition-colors mb-10">
+          <Link href="/products" className="inline-flex items-center gap-2 text-sm text-charcoal-800/60 hover:text-gold-400 transition-colors mb-10">
             <ArrowLeft size={14}/> Back to Products
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Images */}
-            <div className="space-y-4"
+            <div className="space-y-4 group"
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}>
 
               {/* Main image */}
-              <div className="relative aspect-square bg-cream-100 rounded-3xl overflow-hidden cursor-zoom-in"
+              <div className="relative aspect-square bg-wood-50 border border-wood-800 rounded-3xl overflow-hidden cursor-zoom-in"
                 onClick={() => images.length > 0 && setLightbox(true)}>
                 {currentImage ? (
                   <Image src={currentImage} alt={product.name} fill
@@ -81,7 +81,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     quality={85} priority />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="font-serif text-8xl text-cream-200">K</span>
+                    <span className="font-serif text-8xl text-wood-300">S</span>
                   </div>
                 )}
 
@@ -89,11 +89,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 {images.length > 1 && (
                   <>
                     <button onClick={e => { e.stopPropagation(); prev(); }}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white text-charcoal-900 rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 hover:opacity-100">
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white text-wood-900 rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 hover:opacity-100">
                       <ChevronLeft size={18}/>
                     </button>
                     <button onClick={e => { e.stopPropagation(); next(); }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white text-charcoal-900 rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 hover:opacity-100">
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white text-wood-900 rounded-full flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 hover:opacity-100">
                       <ChevronRight size={18}/>
                     </button>
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
@@ -107,7 +107,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                 {/* Click to zoom hint */}
                 {images.length > 0 && (
-                  <div className="absolute top-3 right-3 bg-black/30 text-white text-[10px] px-2 py-1 rounded-full backdrop-blur-sm">
+                  <div className="absolute top-3 right-3 bg-black/50 text-white text-[10px] px-2 py-1 rounded-full backdrop-blur-sm">
                     🔍 Click to zoom
                   </div>
                 )}
@@ -118,7 +118,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 <div className="flex gap-3 overflow-x-auto pb-1">
                   {images.map((img, i) => (
                     <button key={i} onClick={() => { setImgIdx(i); setSelVar(variants[i] ?? null); }}
-                      className={`relative w-16 h-16 shrink-0 rounded-xl overflow-hidden border-2 transition-all ${i === imgIdx ? "border-gold-400 scale-105" : "border-cream-200 hover:border-charcoal-800/30"}`}>
+                      className={`relative w-16 h-16 shrink-0 rounded-xl overflow-hidden border-2 transition-all ${i === imgIdx ? "border-gold-400 scale-105" : "border-wood-800 hover:border-charcoal-800/40"}`}>
                       <Image src={img.url} alt={img.alt} fill className="object-cover"
                         sizes="64px" quality={60} />
                     </button>
@@ -141,20 +141,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 </p>
               )}
               {product.description && (
-                <p className="text-charcoal-800/60 leading-relaxed mb-8 whitespace-pre-line">{product.description}</p>
+                <p className="text-charcoal-800/70 leading-relaxed mb-8 whitespace-pre-line">{product.description}</p>
               )}
 
               {/* Color picker */}
               {variants.length > 0 && (
                 <div className="mb-8">
-                  <p className="text-xs uppercase tracking-widest text-charcoal-800/50 mb-3">
+                  <p className="text-xs uppercase tracking-widest text-charcoal-800/60 mb-3">
                     Color — {selVar?.color_name}
                   </p>
                   <div className="flex gap-3 flex-wrap">
                     {variants.map((v, i) => (
                       <button key={v.id} title={v.color_name}
                         onClick={() => { setSelVar(v); setImgIdx(i < images.length ? i : 0); }}
-                        className={`w-8 h-8 rounded-full border-2 transition-all ${selVar?.id === v.id ? "border-gold-400 scale-110 ring-2 ring-gold-400/30" : "border-cream-200 hover:border-charcoal-800/40"}`}
+                        className={`w-8 h-8 rounded-full border-2 transition-all ${selVar?.id === v.id ? "border-gold-400 scale-110 ring-2 ring-gold-400/30" : "border-wood-800 hover:border-charcoal-800/50"}`}
                         style={{ backgroundColor: v.color_hex ?? "#ccc" }} />
                     ))}
                   </div>
@@ -162,13 +162,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               )}
 
               {/* Specs */}
-              <div className="grid grid-cols-2 gap-4 mb-8 p-6 bg-white rounded-2xl border border-cream-100">
-                <p className="col-span-2 text-xs uppercase tracking-widest text-charcoal-800/40 mb-1">Specifications</p>
+              <div className="grid grid-cols-2 gap-4 mb-8 p-6 bg-wood-50 rounded-2xl border border-wood-800">
+                <p className="col-span-2 text-xs uppercase tracking-widest text-charcoal-800/60 mb-1">Specifications</p>
                 {product.dimensions && (
                   <div className="flex items-start gap-2">
                     <Ruler size={14} className="text-gold-400 mt-0.5 shrink-0"/>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/40">Dimensions</p>
+                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/60">Dimensions</p>
                       <p className="text-sm text-charcoal-900 whitespace-pre-line">{product.dimensions}</p>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                   <div className="flex items-start gap-2">
                     <Weight size={14} className="text-gold-400 mt-0.5 shrink-0"/>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/40">Weight</p>
+                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/60">Weight</p>
                       <p className="text-sm text-charcoal-900">{product.weight_lbs} lbs</p>
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                   <div className="flex items-start gap-2">
                     <Clock size={14} className="text-gold-400 mt-0.5 shrink-0"/>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/40">Lead Time</p>
+                      <p className="text-[10px] uppercase tracking-wider text-charcoal-800/60">Lead Time</p>
                       <p className="text-sm text-charcoal-900">{product.lead_time}</p>
                     </div>
                   </div>
@@ -194,17 +194,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 <div className="flex items-start gap-2">
                   <Package size={14} className="text-gold-400 mt-0.5 shrink-0"/>
                   <div>
-                    <p className="text-[10px] uppercase tracking-wider text-charcoal-800/40">Shipping</p>
+                    <p className="text-[10px] uppercase tracking-wider text-charcoal-800/60">Shipping</p>
                     <p className="text-sm text-charcoal-900">Freight — all 50 states</p>
                   </div>
                 </div>
               </div>
 
               <button onClick={() => setModal(true)}
-                className="w-full py-4 bg-charcoal-900 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full font-medium">
+                className="w-full py-4 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full font-medium">
                 Get Freight Quote
               </button>
-              <p className="text-center text-xs text-charcoal-800/40 mt-3">Free quote · Respond within 1 business day</p>
+              <p className="text-center text-xs text-charcoal-800/50 mt-3">Free quote · Respond within 1 business day</p>
             </div>
           </div>
         </div>
