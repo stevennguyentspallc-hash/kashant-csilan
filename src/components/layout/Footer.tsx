@@ -17,8 +17,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand */}
         <div className="md:col-span-1">
-          <Image src="/logo.png" alt="Kashant" width={140} height={48}
-            className="h-12 w-auto object-contain mb-4 brightness-0 invert opacity-80" />
+          <Image src="/logo.png" alt="Slian Solutions" width={220} height={27}
+            className="h-9 w-auto object-contain mb-4" />
           <p className="text-sm leading-relaxed text-white/50 mt-3">
             Premium nail salon furniture crafted for discerning salon owners across the United States.
           </p>
@@ -68,7 +68,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail size={13} className="text-gold-400 shrink-0"/>
-              <a href="mailto:info@kashantcsilan.com" className="text-white/50 hover:text-gold-400 transition-colors">info@kashantcsilan.com</a>
+              <a href="mailto:info@sliansolutions.com" className="text-white/50 hover:text-gold-400 transition-colors">info@sliansolutions.com</a>
             </li>
             <li className="flex items-start gap-2">
               <MapPin size={13} className="text-gold-400 shrink-0 mt-0.5"/>
@@ -80,7 +80,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10 px-6 py-4 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-white/30">
-        <p>© {new Date().getFullYear()} Kashant C-Silan LLC. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Slian Solutions. All rights reserved.</p>
         <p>Designed for the US nail salon market.</p>
       </div>
     </footer>
