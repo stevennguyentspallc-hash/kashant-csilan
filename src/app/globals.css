@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brown/Wood tone palette */
-  --color-wood-50:  #FAF8F5;
-  --color-wood-100: #F2EDE6;
-  --color-wood-200: #E0D5C5;
-  --color-wood-300: #C4A882;
-  --color-wood-400: #A67C52;
-  --color-wood-500: #8B6F47;
-  --color-wood-600: #6B5235;
-  --color-wood-700: #4A3824;
-  --color-wood-800: #2E2216;
-  --color-wood-900: #1C1410;
+  /* Navy tone palette (replaces Brown/Wood) */
+  --color-wood-50:  #F5F7FB;
+  --color-wood-100: #E9EDF5;
+  --color-wood-200: #CBD5E6;
+  --color-wood-300: #93A8CC;
+  --color-wood-400: #4C6FA8;
+  --color-wood-500: #16305E;
+  --color-wood-600: #102448;
+  --color-wood-700: #0C1B36;
+  --color-wood-800: #081226;
+  --color-wood-900: #04070F;
 
-  /* Gold accent */
-  --color-gold-300: #DFC97A;
-  --color-gold-400: #C9A84C;
-  --color-gold-500: #B8943F;
+  /* Blue accent (replaces Gold) */
+  --color-gold-300: #6FA8F0;
+  --color-gold-400: #1D6FE0;
+  --color-gold-500: #1557B5;
 
   /* Neutrals */
-  --color-cream-50:  #FAFAF8;
-  --color-cream-100: #F5F3EF;
-  --color-cream-200: #EAE6DE;
+  --color-cream-50:  #F7F9FC;
+  --color-cream-100: #EEF2F7;
+  --color-cream-200: #DCE3ED;
 
-  --color-charcoal-800: #1C1C1E;
-  --color-charcoal-900: #111111;
+  --color-charcoal-800: #12151A;
+  --color-charcoal-900: #08090C;
 
   --font-sans:  var(--font-inter), sans-serif;
   --font-serif: var(--font-playfair), serif;
@@ -34,7 +34,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  ::selection { background-color: #8B6F47; color: #fff; }
+  ::selection { background-color: #16305E; color: #fff; }
 }
 
 @layer utilities {
