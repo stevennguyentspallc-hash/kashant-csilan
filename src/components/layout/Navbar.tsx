@@ -42,14 +42,14 @@ export default function Navbar() {
   const kids    = (pid: string) => categories.filter(c => c.parent_id === pid);
 
   const navBg = scrolled || menuOpen || mobileOpen
-    ? "bg-white shadow-sm py-4"
-    : "bg-white/95 py-5";
+    ? "bg-wood-900 shadow-sm py-4"
+    : "bg-wood-900/95 py-5";
 
   return (
     <>
       {menuOpen && <div className="fixed inset-0 z-40" onClick={() => { setMenuOpen(false); setExpandedId(null); }} />}
 
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-wood-100 ${navBg}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-wood-800 ${navBg}`}>
         <div className="w-full px-6 lg:px-16 flex items-center justify-between">
 
           {/* Logo */}
@@ -61,19 +61,19 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">
             <Link href="/"
-              className="px-4 py-2.5 text-base font-medium text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+              className="px-4 py-2.5 text-base font-medium text-charcoal-800 hover:text-white hover:bg-wood-50 transition-colors rounded">
               Home
             </Link>
 
             {/* Products */}
             <button onClick={() => { setMenuOpen(!menuOpen); setExpandedId(null); }}
-              className={`flex items-center gap-1 px-4 py-2.5 text-base font-medium transition-colors rounded ${menuOpen ? "text-wood-500 bg-wood-50" : "text-wood-700 hover:text-wood-500 hover:bg-wood-50"}`}>
+              className={`flex items-center gap-1 px-4 py-2.5 text-base font-medium transition-colors rounded ${menuOpen ? "text-white bg-wood-50" : "text-charcoal-800 hover:text-white hover:bg-wood-50"}`}>
               Products <ChevronDown size={15} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}/>
             </button>
 
             {staticLinks.slice(1).map(l => (
               <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 text-base font-medium text-wood-700 hover:text-wood-500 hover:bg-wood-50 transition-colors rounded">
+                className="px-4 py-2.5 text-base font-medium text-charcoal-800 hover:text-white hover:bg-wood-50 transition-colors rounded">
                 {l.label}
               </Link>
             ))}
@@ -82,7 +82,7 @@ export default function Navbar() {
           {/* Right */}
           <div className="hidden lg:flex items-center gap-5">
             <a href="tel:+18326623909"
-              className="flex items-center gap-2 text-base font-medium text-wood-700 hover:text-wood-500 transition-colors">
+              className="flex items-center gap-2 text-base font-medium text-charcoal-800 hover:text-white transition-colors">
               <Phone size={16}/> (832) 662-3909
             </a>
             <Link href="/products?category=pedicure-spa"
@@ -93,22 +93,22 @@ export default function Navbar() {
 
           {/* Mobile */}
           <button onClick={() => { setMobileOpen(!mobileOpen); setMenuOpen(false); }}
-            className="lg:hidden text-wood-700">
+            className="lg:hidden text-charcoal-900">
             {mobileOpen ? <X size={22}/> : <Menu size={22}/>}
           </button>
         </div>
 
         {/* Mega menu */}
         {menuOpen && (
-          <div className="hidden lg:flex absolute top-full left-0 right-0 bg-white shadow-xl border-t border-wood-100 z-50">
+          <div className="hidden lg:flex absolute top-full left-0 right-0 bg-wood-900 shadow-xl border-t border-wood-800 z-50">
             <div className="w-full px-6 lg:px-16 flex">
               {/* Left */}
-              <div className="w-72 border-r border-wood-100 py-4 max-h-[480px] overflow-y-auto">
+              <div className="w-72 border-r border-wood-800 py-4 max-h-[480px] overflow-y-auto">
                 <Link href="/products" onClick={() => { setMenuOpen(false); }}
-                  className="flex items-center justify-between px-6 py-3 text-sm font-semibold text-wood-800 hover:bg-wood-50 hover:text-wood-500 transition-colors">
+                  className="flex items-center justify-between px-6 py-3 text-sm font-semibold text-charcoal-900 hover:bg-wood-50 hover:text-gold-400 transition-colors">
                   All Products <ChevronRight size={14} className="opacity-30"/>
                 </Link>
-                <div className="h-px bg-wood-100 mx-6 my-1"/>
+                <div className="h-px bg-wood-800 mx-6 my-1"/>
                 {parents.map(parent => {
                   const children = kids(parent.id);
                   const isExp = expandedId === parent.id;
@@ -117,12 +117,12 @@ export default function Navbar() {
                       <div className={`flex items-center ${isExp ? "bg-wood-50" : "hover:bg-wood-50"} transition-colors`}>
                         <Link href={`/products?category=${parent.slug}`}
                           onClick={() => { setMenuOpen(false); setExpandedId(null); }}
-                          className="flex-1 px-6 py-3 text-sm font-semibold text-wood-800 hover:text-wood-500 uppercase tracking-wide transition-colors">
+                          className="flex-1 px-6 py-3 text-sm font-semibold text-charcoal-900 hover:text-gold-400 uppercase tracking-wide transition-colors">
                           {parent.name}
                         </Link>
                         {children.length > 0 && (
                           <button onClick={e => { e.stopPropagation(); setExpandedId(isExp ? null : parent.id); }}
-                            className="px-4 py-3 text-wood-400 hover:text-wood-500">
+                            className="px-4 py-3 text-charcoal-800 hover:text-gold-400">
                             <ChevronRight size={14} className={`transition-transform ${isExp ? "rotate-90" : ""}`}/>
                           </button>
                         )}
@@ -132,8 +132,8 @@ export default function Navbar() {
                           {children.map(child => (
                             <Link key={child.id} href={`/products?category=${child.slug}`}
                               onClick={() => { setMenuOpen(false); setExpandedId(null); }}
-                              className="flex items-center gap-2 px-4 py-2.5 text-sm text-wood-600 hover:text-wood-500 hover:bg-white transition-colors rounded-r">
-                              <span className="w-1.5 h-1.5 rounded-full bg-gold-400/60 shrink-0"/>
+                              className="flex items-center gap-2 px-4 py-2.5 text-sm text-charcoal-800 hover:text-gold-400 hover:bg-wood-100 transition-colors rounded-r">
+                              <span className={`w-1.5 h-1.5 rounded-full bg-gold-400/60 shrink-0`}/>
                               {child.name}
                             </Link>
                           ))}
@@ -145,9 +145,9 @@ export default function Navbar() {
               </div>
               {/* Right panel */}
               <div className="flex-1 p-10 bg-wood-50 flex flex-col justify-center">
-                <p className="text-xs uppercase tracking-widest text-wood-400 mb-2">Slian Solutions</p>
-                <h3 className="font-serif text-3xl font-bold text-wood-900 mb-3">Premium Nail Salon Furniture</h3>
-                <p className="text-sm text-wood-600 leading-relaxed mb-8 max-w-sm">
+                <p className="text-xs uppercase tracking-widest text-gold-400 mb-2">Slian Solutions</p>
+                <h3 className="font-serif text-3xl font-bold text-charcoal-900 mb-3">Premium Nail Salon Furniture</h3>
+                <p className="text-sm text-charcoal-800 leading-relaxed mb-8 max-w-sm">
                   From pedicure spa chairs to custom furniture — everything your salon needs, delivered nationwide.
                 </p>
                 <div className="flex gap-3">
@@ -156,7 +156,7 @@ export default function Navbar() {
                     View All Products
                   </Link>
                   <Link href="/promotions" onClick={() => setMenuOpen(false)}
-                    className="px-6 py-3 border border-wood-300 text-wood-700 text-xs tracking-widest uppercase rounded hover:bg-wood-100 transition-colors">
+                    className="px-6 py-3 border border-wood-300 text-charcoal-900 text-xs tracking-widest uppercase rounded hover:bg-wood-100 transition-colors">
                     Promotions
                   </Link>
                 </div>
