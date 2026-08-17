@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
-const BASE_URL = "https://kashant-csilan.vercel.app";
+const BASE_URL = "https://sliansolutions.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   title: {
-    default:  "Kashant C-Silan LLC — Premium Nail Salon Furniture",
-    template: "%s | Kashant C-Silan LLC",
+    default:  "Slian Solutions — Premium Nail Salon Furniture",
+    template: "%s | Slian Solutions",
   },
   description:
     "Premium nail salon furniture for US nail salons. Shop pedicure chairs, manicure tables, reception desks & more. Nationwide freight delivery. Get a free quote today.",
@@ -31,27 +31,27 @@ export const metadata: Metadata = {
     "salon supply",
     "freight delivery salon furniture",
   ],
-  authors: [{ name: "Kashant C-Silan LLC" }],
-  creator: "Kashant C-Silan LLC",
+  authors: [{ name: "Slian Solutions" }],
+  creator: "Slian Solutions",
   openGraph: {
     type:        "website",
     locale:      "en_US",
     url:         BASE_URL,
-    siteName:    "Kashant C-Silan LLC",
-    title:       "Kashant C-Silan LLC — Premium Nail Salon Furniture",
+    siteName:    "Slian Solutions",
+    title:       "Slian Solutions — Premium Nail Salon Furniture",
     description: "Luxury nail salon furniture for modern US salons. Pedicure chairs, manicure tables, reception desks. Nationwide delivery.",
     images: [
       {
         url:    "/og-image.jpg",
         width:  1200,
         height: 630,
-        alt:    "Kashant C-Silan LLC — Premium Nail Salon Furniture",
+        alt:    "Slian Solutions — Premium Nail Salon Furniture",
       },
     ],
   },
   twitter: {
     card:        "summary_large_image",
-    title:       "Kashant C-Silan LLC — Premium Nail Salon Furniture",
+    title:       "Slian Solutions — Premium Nail Salon Furniture",
     description: "Luxury nail salon furniture for modern US salons. Nationwide delivery.",
     images:      ["/og-image.jpg"],
   },
