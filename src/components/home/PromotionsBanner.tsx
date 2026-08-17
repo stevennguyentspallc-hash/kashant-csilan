@@ -51,7 +51,7 @@ export default function PromotionsBanner() {
   const promo = promos[current];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-cream-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -59,24 +59,24 @@ export default function PromotionsBanner() {
             <h2 className="font-serif text-3xl font-bold text-charcoal-900">Current Promotions</h2>
           </div>
           <Link href="/promotions"
-            className="inline-flex items-center gap-2 text-sm text-charcoal-800/50 hover:text-gold-400 transition-colors uppercase tracking-wider">
+            className="inline-flex items-center gap-2 text-sm text-charcoal-800/60 hover:text-gold-400 transition-colors uppercase tracking-wider">
             View All <ArrowRight size={14} />
           </Link>
         </div>
 
         <div
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded-3xl overflow-hidden border border-wood-800"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           {/* Background */}
-          <div className="relative h-72 md:h-96 bg-charcoal-900">
+          <div className="relative h-72 md:h-96 bg-wood-900">
             {promo.image_url ? (
               <Image src={promo.image_url} alt={promo.title} fill className="object-cover opacity-50" />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 via-charcoal-800 to-gold-500/20" />
+              <div className="absolute inset-0 bg-gradient-to-br from-wood-900 via-wood-800 to-gold-500/20" />
             )}
-            <div className="absolute inset-0 bg-gradient-to-r from-charcoal-900/90 via-charcoal-900/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-wood-900/90 via-wood-900/60 to-transparent" />
 
             {/* Content */}
             <div className="relative h-full flex items-center px-8 md:px-16">
