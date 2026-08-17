@@ -5,19 +5,16 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Lightbox from "@/components/ui/Lightbox";
-
 interface GalleryItem {
   id: string;
   image_url: string;
   caption: string | null;
   tag: string | null;
 }
-
 export default function GallerySection() {
   const [items,    setItems]    = useState<GalleryItem[]>([]);
   const [loading,  setLoading]  = useState(true);
   const [lightbox, setLightbox] = useState<number | null>(null);
-
   useEffect(() => {
     const sb = createClient();
     sb.from("gallery")
@@ -32,17 +29,15 @@ export default function GallerySection() {
         setLoading(false);
       });
   }, []);
-
   const images = items.map(i => ({ url: i.image_url, alt: i.caption ?? "Gallery" }));
-
   if (loading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-cream-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
-              <h2 className="font-serif text-4xl font-bold text-wood-900">SALON GALLERY</h2>
+              <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
+              <h2 className="font-serif text-4xl font-bold text-charcoal-900">SALON GALLERY</h2>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
@@ -54,19 +49,17 @@ export default function GallerySection() {
       </section>
     );
   }
-
   if (items.length === 0) return null;
-
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-cream-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-wood-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
-            <h2 className="font-serif text-4xl font-bold text-wood-900">SALON GALLERY</h2>
+            <p className="text-gold-400 text-xs tracking-widest2 uppercase mb-2">Inspiration</p>
+            <h2 className="font-serif text-4xl font-bold text-charcoal-900">SALON GALLERY</h2>
           </div>
           <Link href="/gallery"
-            className="inline-flex items-center gap-2 text-sm text-wood-500 hover:text-wood-700 transition-colors uppercase tracking-wider">
+            className="inline-flex items-center gap-2 text-sm text-gold-400 hover:text-gold-300 transition-colors uppercase tracking-wider">
             View More <ArrowRight size={14}/>
           </Link>
         </div>
@@ -84,7 +77,7 @@ export default function GallerySection() {
                 quality={75}
               />
               {item.tag && (
-                <span className="absolute top-2 left-2 bg-white/90 text-wood-800 text-[10px] px-2 py-0.5 rounded-full">
+                <span className="absolute top-2 left-2 bg-wood-900/85 text-charcoal-900 text-[10px] px-2 py-0.5 rounded-full">
                   {item.tag}
                 </span>
               )}
