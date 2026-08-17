@@ -87,7 +87,7 @@ export default function VideoSection() {
               onClick={() => setPlaying(true)}
             >
               <div className="w-20 h-20 bg-white/90 group-hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all group-hover:scale-110">
-                <Play size={28} className="text-wood-800 ml-1.5" fill="currentColor" />
+                <Play size={28} className="text-wood-900 ml-1.5" fill="currentColor" />
               </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-5 pointer-events-none">
@@ -101,8 +101,8 @@ export default function VideoSection() {
       {videos.length > 1 && (
         <div className="flex items-center gap-2">
           <button onClick={() => setCurrent(i => (i - 1 + videos.length) % videos.length)}
-            className="w-8 h-8 bg-wood-100 hover:bg-wood-200 rounded-full flex items-center justify-center shrink-0">
-            <ChevronLeft size={14} className="text-wood-700" />
+            className="w-8 h-8 bg-wood-800 hover:bg-wood-600 rounded-full flex items-center justify-center shrink-0 transition-colors">
+            <ChevronLeft size={14} className="text-charcoal-900" />
           </button>
           <div className="flex-1 flex gap-2 overflow-x-auto pb-1">
             {videos.map((v, i) => {
@@ -111,14 +111,14 @@ export default function VideoSection() {
                 <button key={v.id} onClick={() => setCurrent(i)}
                   className={"relative w-20 h-12 rounded overflow-hidden shrink-0 border-2 transition-all " + (i === current ? "border-gold-400" : "border-transparent opacity-60 hover:opacity-100")}
                   style={id ? { backgroundImage: "url(https://img.youtube.com/vi/" + id + "/mqdefault.jpg)", backgroundSize: "cover" } : {}}>
-                  {!id && <div className="w-full h-full bg-wood-200" />}
+                  {!id && <div className="w-full h-full bg-wood-800" />}
                 </button>
               );
             })}
           </div>
           <button onClick={() => setCurrent(i => (i + 1) % videos.length)}
-            className="w-8 h-8 bg-wood-100 hover:bg-wood-200 rounded-full flex items-center justify-center shrink-0">
-            <ChevronRight size={14} className="text-wood-700" />
+            className="w-8 h-8 bg-wood-800 hover:bg-wood-600 rounded-full flex items-center justify-center shrink-0 transition-colors">
+            <ChevronRight size={14} className="text-charcoal-900" />
           </button>
         </div>
       )}
