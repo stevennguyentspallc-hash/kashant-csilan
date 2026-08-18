@@ -149,7 +149,7 @@ export default function AdminImportPage() {
     wsColor["!cols"] = [{ wch: 18 }, { wch: 14 }, { wch: 10 }];
     XLSX.utils.book_append_sheet(wb, wsColor, "Color Guide");
 
-    XLSX.writeFile(wb, "kashant-products-template.xlsx");
+    XLSX.writeFile(wb, "slian-products-template.xlsx");
   };
 
   // ── Parse uploaded file ──────────────────────────────────────────
@@ -240,15 +240,15 @@ export default function AdminImportPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-serif text-2xl md:text-3xl font-bold text-charcoal-900">Bulk Import Products</h1>
-        <p className="text-charcoal-800/50 text-sm mt-1">Upload Excel file to add multiple products at once</p>
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-white">Bulk Import Products</h1>
+        <p className="text-white/50 text-sm mt-1">Upload Excel file to add multiple products at once</p>
       </div>
 
       {step === "upload" && (
         <div className="space-y-6">
-          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
-            <h2 className="font-semibold text-blue-900 mb-3">How to use</h2>
-            <ol className="space-y-2 text-sm text-blue-800">
+          <div className="bg-blue-950/40 border border-blue-500/30 rounded-2xl p-6">
+            <h2 className="font-semibold text-blue-300 mb-3">How to use</h2>
+            <ol className="space-y-2 text-sm text-blue-200/80">
               <li className="flex gap-2"><span className="font-bold">1.</span> Download Excel template (has dropdowns for category & featured)</li>
               <li className="flex gap-2"><span className="font-bold">2.</span> Fill in products — use dropdown in column B to select category</li>
               <li className="flex gap-2"><span className="font-bold">3.</span> Check the <b>Category Reference</b> sheet for all available categories</li>
@@ -259,23 +259,23 @@ export default function AdminImportPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <button onClick={downloadTemplate}
-              className="flex items-center gap-4 p-6 bg-white border-2 border-cream-200 rounded-2xl hover:border-gold-400 transition-colors group text-left">
-              <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center shrink-0">
-                <FileSpreadsheet size={24} className="text-green-600"/>
+              className="flex items-center gap-4 p-6 bg-wood-50 border-2 border-wood-800 rounded-2xl hover:border-gold-400 transition-colors group text-left">
+              <div className="w-12 h-12 bg-green-500/15 rounded-xl flex items-center justify-center shrink-0">
+                <FileSpreadsheet size={24} className="text-green-400"/>
               </div>
               <div>
-                <p className="font-semibold text-charcoal-900 group-hover:text-gold-500 transition-colors">Download Excel Template</p>
-                <p className="text-xs text-charcoal-800/40 mt-0.5">With category dropdowns + color guide</p>
+                <p className="font-semibold text-charcoal-900 group-hover:text-gold-400 transition-colors">Download Excel Template</p>
+                <p className="text-xs text-charcoal-800/60 mt-0.5">With category dropdowns + color guide</p>
               </div>
             </button>
 
-            <label className="flex items-center gap-4 p-6 bg-white border-2 border-dashed border-cream-200 rounded-2xl hover:border-gold-400 transition-colors cursor-pointer group text-left">
-              <div className="w-12 h-12 bg-cream-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-gold-400/10 transition-colors">
-                <Upload size={24} className="text-charcoal-800/30 group-hover:text-gold-400 transition-colors"/>
+            <label className="flex items-center gap-4 p-6 bg-wood-50 border-2 border-dashed border-wood-800 rounded-2xl hover:border-gold-400 transition-colors cursor-pointer group text-left">
+              <div className="w-12 h-12 bg-wood-900 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-gold-400/10 transition-colors">
+                <Upload size={24} className="text-charcoal-800/50 group-hover:text-gold-400 transition-colors"/>
               </div>
               <div>
                 <p className="font-semibold text-charcoal-900">Upload Excel File</p>
-                <p className="text-xs text-charcoal-800/40 mt-0.5">.xlsx or .csv accepted</p>
+                <p className="text-xs text-charcoal-800/60 mt-0.5">.xlsx or .csv accepted</p>
               </div>
               <input ref={fileRef} type="file" accept=".xlsx,.csv" className="hidden"
                 onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }}/>
@@ -289,49 +289,49 @@ export default function AdminImportPage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-semibold text-charcoal-900">{preview.length} products ready to import</h2>
-              <p className="text-sm text-charcoal-800/50 mt-0.5">Review before importing — file: {file?.name}</p>
+              <p className="text-sm text-charcoal-800/60 mt-0.5">Review before importing — file: {file?.name}</p>
             </div>
             <div className="flex gap-3">
               <button onClick={() => { setStep("upload"); setPreview([]); }}
-                className="px-5 py-2.5 border border-cream-200 text-charcoal-800 text-sm rounded-full hover:border-charcoal-900 transition-colors">
+                className="px-5 py-2.5 border border-wood-300 text-charcoal-800 text-sm rounded-full hover:border-white transition-colors">
                 Back
               </button>
               <button onClick={handleImport} disabled={importing}
-                className="px-5 py-2.5 bg-charcoal-900 text-white text-sm rounded-full hover:bg-gold-500 transition-colors disabled:opacity-50 min-w-36">
+                className="px-5 py-2.5 bg-wood-500 text-white text-sm rounded-full hover:bg-wood-600 transition-colors disabled:opacity-50 min-w-36">
                 {importing ? "Importing..." : `Import ${preview.length} Products`}
               </button>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-cream-100 overflow-x-auto">
+          <div className="bg-wood-50 rounded-2xl shadow-sm border border-wood-800 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-cream-100 bg-cream-50">
+                <tr className="border-b border-wood-800 bg-wood-900">
                   {["#","Name","Category","Price","Dimensions","Colors","Featured"].map(h => (
-                    <th key={h} className="text-left px-4 py-3 text-xs uppercase tracking-wider text-charcoal-800/40 whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-left px-4 py-3 text-xs uppercase tracking-wider text-charcoal-800/60 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-cream-100">
+              <tbody className="divide-y divide-wood-800">
                 {preview.map((row, i) => {
                   const colors = [row.color_1_name, row.color_2_name, row.color_3_name, row.color_4_name].filter(c => c?.toString().trim());
                   return (
-                    <tr key={i} className="hover:bg-cream-50">
-                      <td className="px-4 py-3 text-charcoal-800/40 text-xs">{i+1}</td>
+                    <tr key={i} className="hover:bg-wood-100">
+                      <td className="px-4 py-3 text-charcoal-800/50 text-xs">{i+1}</td>
                       <td className="px-4 py-3 font-medium text-charcoal-900 max-w-48 truncate">{row.name?.toString()}</td>
-                      <td className="px-4 py-3"><code className="text-xs bg-cream-100 px-2 py-0.5 rounded whitespace-nowrap">{row.category_slug?.toString() || "—"}</code></td>
-                      <td className="px-4 py-3 whitespace-nowrap">{row.price_usd ? `$${row.price_usd}` : "—"}</td>
-                      <td className="px-4 py-3 text-xs text-charcoal-800/60 whitespace-nowrap">{row.dimensions?.toString() || "—"}</td>
+                      <td className="px-4 py-3"><code className="text-xs bg-wood-900 text-charcoal-900 px-2 py-0.5 rounded whitespace-nowrap">{row.category_slug?.toString() || "—"}</code></td>
+                      <td className="px-4 py-3 text-charcoal-900 whitespace-nowrap">{row.price_usd ? `$${row.price_usd}` : "—"}</td>
+                      <td className="px-4 py-3 text-xs text-charcoal-800/70 whitespace-nowrap">{row.dimensions?.toString() || "—"}</td>
                       <td className="px-4 py-3">
                         <div className="flex gap-1 flex-wrap">
                           {colors.length > 0
-                            ? colors.map((c, ci) => <span key={ci} className="text-xs bg-cream-100 px-2 py-0.5 rounded whitespace-nowrap">{c.toString()}</span>)
-                            : <span className="text-charcoal-800/30 text-xs">—</span>
+                            ? colors.map((c, ci) => <span key={ci} className="text-xs bg-wood-900 text-charcoal-900 px-2 py-0.5 rounded whitespace-nowrap">{c.toString()}</span>)
+                            : <span className="text-charcoal-800/40 text-xs">—</span>
                           }
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${row.is_featured?.toString().toLowerCase() === "true" ? "bg-gold-400/10 text-gold-500" : "bg-cream-100 text-charcoal-800/40"}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${row.is_featured?.toString().toLowerCase() === "true" ? "bg-gold-400/15 text-gold-400" : "bg-wood-900 text-charcoal-800/50"}`}>
                           {row.is_featured?.toString().toLowerCase() === "true" ? "Featured" : "Normal"}
                         </span>
                       </td>
@@ -347,40 +347,40 @@ export default function AdminImportPage() {
       {step === "done" && (
         <div className="space-y-4">
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-green-50 border border-green-200 rounded-2xl p-5 text-center">
-              <p className="font-serif text-3xl font-bold text-green-600">{successCount}</p>
-              <p className="text-sm text-green-700 mt-1">Imported</p>
+            <div className="bg-green-950/40 border border-green-500/30 rounded-2xl p-5 text-center">
+              <p className="font-serif text-3xl font-bold text-green-400">{successCount}</p>
+              <p className="text-sm text-green-300 mt-1">Imported</p>
             </div>
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-5 text-center">
-              <p className="font-serif text-3xl font-bold text-red-500">{errorCount}</p>
-              <p className="text-sm text-red-600 mt-1">Failed</p>
+            <div className="bg-red-950/40 border border-red-500/30 rounded-2xl p-5 text-center">
+              <p className="font-serif text-3xl font-bold text-red-400">{errorCount}</p>
+              <p className="text-sm text-red-300 mt-1">Failed</p>
             </div>
-            <div className="bg-cream-50 border border-cream-200 rounded-2xl p-5 text-center">
+            <div className="bg-wood-50 border border-wood-800 rounded-2xl p-5 text-center">
               <p className="font-serif text-3xl font-bold text-charcoal-900">{results.length}</p>
-              <p className="text-sm text-charcoal-800/50 mt-1">Total</p>
+              <p className="text-sm text-charcoal-800/60 mt-1">Total</p>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-cream-100 overflow-hidden max-h-96 overflow-y-auto">
+          <div className="bg-wood-50 rounded-2xl shadow-sm border border-wood-800 overflow-hidden max-h-96 overflow-y-auto">
             {results.map((r, i) => (
-              <div key={i} className="flex items-center gap-3 px-5 py-3 border-b border-cream-50 last:border-0">
-                {r.status === "success" && <CheckCircle size={15} className="text-green-500 shrink-0"/>}
-                {r.status === "error"   && <XCircle size={15} className="text-red-500 shrink-0"/>}
-                {r.status === "skip"    && <AlertCircle size={15} className="text-yellow-500 shrink-0"/>}
-                <span className="text-xs text-charcoal-800/40 w-12 shrink-0">Row {r.row}</span>
+              <div key={i} className="flex items-center gap-3 px-5 py-3 border-b border-wood-800 last:border-0">
+                {r.status === "success" && <CheckCircle size={15} className="text-green-400 shrink-0"/>}
+                {r.status === "error"   && <XCircle size={15} className="text-red-400 shrink-0"/>}
+                {r.status === "skip"    && <AlertCircle size={15} className="text-yellow-400 shrink-0"/>}
+                <span className="text-xs text-charcoal-800/50 w-12 shrink-0">Row {r.row}</span>
                 <span className="text-sm text-charcoal-900 flex-1 truncate">{r.name}</span>
-                <span className={`text-xs shrink-0 ${r.status==="success"?"text-green-600":r.status==="error"?"text-red-500":"text-yellow-600"}`}>{r.message}</span>
+                <span className={`text-xs shrink-0 ${r.status==="success"?"text-green-400":r.status==="error"?"text-red-400":"text-yellow-400"}`}>{r.message}</span>
               </div>
             ))}
           </div>
 
           <div className="flex gap-3">
             <button onClick={() => { setStep("upload"); setPreview([]); setResults([]); setFile(null); }}
-              className="px-6 py-3 border border-cream-200 text-charcoal-800 text-sm rounded-full hover:border-charcoal-900 transition-colors">
+              className="px-6 py-3 border border-wood-300 text-charcoal-800 text-sm rounded-full hover:border-white transition-colors">
               Import More
             </button>
             <a href="/admin/products"
-              className="px-6 py-3 bg-charcoal-900 text-white text-sm rounded-full hover:bg-gold-500 transition-colors inline-block">
+              className="px-6 py-3 bg-wood-500 text-white text-sm rounded-full hover:bg-wood-600 transition-colors inline-block">
               View All Products →
             </a>
           </div>
