@@ -119,33 +119,33 @@ export default function AdminGalleryPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-serif text-2xl md:text-3xl font-bold text-charcoal-900">Gallery</h1>
-        <p className="text-charcoal-800/50 text-sm mt-1">{items.length} photos</p>
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-white">Gallery</h1>
+        <p className="text-white/50 text-sm mt-1">{items.length} photos</p>
       </div>
 
       {/* Upload card */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-cream-100 mb-8">
+      <div className="bg-wood-50 rounded-2xl p-6 shadow-sm border border-wood-800 mb-8">
         <h2 className="font-semibold text-charcoal-900 mb-4">Upload New Photo</h2>
 
-        {error   && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-4">{error}</div>}
-        {success && <div className="bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-xl mb-4">{success}</div>}
+        {error   && <div className="bg-red-950/40 border border-red-500/40 text-red-300 text-sm px-4 py-3 rounded-xl mb-4">{error}</div>}
+        {success && <div className="bg-green-950/40 border border-green-500/40 text-green-300 text-sm px-4 py-3 rounded-xl mb-4">{success}</div>}
 
         <div className="flex flex-col md:flex-row gap-6">
           {/* File picker */}
           <label className="cursor-pointer shrink-0">
-            <div className="w-full md:w-40 h-40 rounded-2xl border-2 border-dashed border-cream-200 hover:border-gold-400 transition-colors flex flex-col items-center justify-center overflow-hidden bg-cream-50">
+            <div className="w-full md:w-40 h-40 rounded-2xl border-2 border-dashed border-wood-300 hover:border-gold-400 transition-colors flex flex-col items-center justify-center overflow-hidden bg-wood-900">
               {preview ? (
                 <div className="relative w-full h-full">
                   <Image src={preview} alt="preview" fill className="object-cover rounded-2xl" />
                   <button type="button" onClick={(e) => { e.preventDefault(); setFile(null); setPreview(null); }}
-                    className="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow">
+                    className="absolute top-1 right-1 bg-white text-wood-900 rounded-full p-0.5 shadow">
                     <X size={12} />
                   </button>
                 </div>
               ) : (
                 <>
-                  <Upload size={24} className="text-cream-200 mb-2" />
-                  <p className="text-xs text-charcoal-800/40 text-center px-2">Click to upload</p>
+                  <Upload size={24} className="text-charcoal-800/50 mb-2" />
+                  <p className="text-xs text-charcoal-800/50 text-center px-2">Click to upload</p>
                 </>
               )}
             </div>
@@ -155,21 +155,21 @@ export default function AdminGalleryPage() {
           {/* Fields */}
           <div className="flex-1 space-y-4">
             <div>
-              <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Caption</label>
+              <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Caption</label>
               <input value={caption} onChange={(e) => setCaption(e.target.value)}
-                className="w-full border border-cream-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400"
+                className="w-full bg-wood-900 border border-wood-300 rounded-xl px-4 py-2.5 text-sm text-charcoal-900 placeholder:text-charcoal-800/40 focus:outline-none focus:border-gold-400"
                 placeholder="Beautiful pedicure area setup..." />
             </div>
             <div>
-              <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Tag</label>
+              <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Tag</label>
               <select value={tag} onChange={(e) => setTag(e.target.value)}
-                className="w-full border border-cream-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold-400 bg-white">
+                className="w-full bg-wood-900 border border-wood-300 rounded-xl px-4 py-2.5 text-sm text-charcoal-900 focus:outline-none focus:border-gold-400">
                 <option value="">No tag</option>
                 {TAGS.slice(1).map((t) => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
             <button onClick={handleUpload} disabled={!file || uploading}
-              className="w-full py-3 bg-charcoal-900 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full disabled:opacity-40">
+              className="w-full py-3 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full disabled:opacity-40">
               {uploading ? "Uploading..." : "Upload Photo"}
             </button>
           </div>
@@ -185,7 +185,7 @@ export default function AdminGalleryPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((item) => (
             <div key={item.id} className={`group relative rounded-2xl overflow-hidden aspect-square border-2 transition-all ${
-              item.is_active ? "border-transparent" : "border-red-200 opacity-50"
+              item.is_active ? "border-transparent" : "border-red-500/40 opacity-50"
             }`}>
               <Image src={item.image_url} alt={item.caption ?? "Gallery"} fill className="object-cover" />
 
@@ -194,7 +194,7 @@ export default function AdminGalleryPage() {
                 <button onClick={() => toggleActive(item.id, item.is_active)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                     item.is_active
-                      ? "bg-yellow-400 text-charcoal-900"
+                      ? "bg-yellow-400 text-wood-900"
                       : "bg-green-400 text-white"
                   }`}>
                   {item.is_active ? "Hide" : "Show"}
@@ -207,7 +207,7 @@ export default function AdminGalleryPage() {
 
               {/* Tag badge */}
               {item.tag && (
-                <span className="absolute top-2 left-2 bg-white/90 text-charcoal-900 text-[10px] px-2 py-0.5 rounded-full">
+                <span className="absolute top-2 left-2 bg-wood-900/85 text-charcoal-900 text-[10px] px-2 py-0.5 rounded-full">
                   {item.tag}
                 </span>
               )}
@@ -215,8 +215,8 @@ export default function AdminGalleryPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 text-charcoal-800/30">
-          <Upload size={40} className="mx-auto mb-3 opacity-30" />
+        <div className="text-center py-20 text-charcoal-800/40">
+          <Upload size={40} className="mx-auto mb-3 opacity-40" />
           <p className="text-sm">No photos yet — upload your first one above!</p>
         </div>
       )}
