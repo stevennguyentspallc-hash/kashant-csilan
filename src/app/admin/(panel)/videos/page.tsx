@@ -130,7 +130,7 @@ export default function AdminVideosPage() {
             const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg` : null;
             return (
               <div key={v.id}
-                className={`bg-wood-50 rounded-2xl border overflow-hidden shadow-sm flex ${v.is_active ? "border-wood-800" : "border-wood-300 opacity-60"}`}>
+                className={`w-full bg-wood-50 rounded-2xl border overflow-hidden shadow-sm flex ${v.is_active ? "border-wood-800" : "border-wood-300 opacity-60"}`}>
                 <div className="relative w-32 md:w-48 h-24 md:h-28 shrink-0 bg-wood-900 overflow-hidden">
                   {thumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
