@@ -37,18 +37,18 @@ export default function AdminProductsClient({ products, categories }: Props) {
   return (
     <div>
       {/* Filters */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-cream-100 mb-4 flex flex-wrap gap-3">
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 mb-4 flex flex-wrap gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-48">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-800/40"/>
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"/>
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="w-full pl-9 pr-4 py-2 border border-cream-200 rounded-xl text-sm focus:outline-none focus:border-gold-400"/>
+            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-gold-400"/>
         </div>
 
         {/* Category filter */}
         <select value={catFilter} onChange={e => setCatFilter(e.target.value)}
-          className="border border-cream-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-gold-400 bg-white min-w-40">
+          className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-gold-400 bg-white min-w-40">
           <option value="">All Categories</option>
           {parents.map(parent => (
             <optgroup key={parent.id} label={parent.name}>
@@ -62,7 +62,7 @@ export default function AdminProductsClient({ products, categories }: Props) {
 
         {/* Status filter */}
         <select value={status} onChange={e => setStatus(e.target.value)}
-          className="border border-cream-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-gold-400 bg-white min-w-32">
+          className="border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-gold-400 bg-white min-w-32">
           <option value="">All Status</option>
           <option value="active">Active</option>
           <option value="hidden">Hidden</option>
@@ -70,7 +70,7 @@ export default function AdminProductsClient({ products, categories }: Props) {
         </select>
 
         {/* Result count */}
-        <div className="flex items-center text-sm text-charcoal-800/40 px-2">
+        <div className="flex items-center text-sm text-gray-400 px-2">
           {filtered.length} results
         </div>
       </div>
@@ -78,15 +78,15 @@ export default function AdminProductsClient({ products, categories }: Props) {
       {/* Mobile cards */}
       <div className="md:hidden space-y-3">
         {filtered.map(p => (
-          <div key={p.id} className="bg-white rounded-2xl p-4 border border-cream-100 shadow-sm">
+          <div key={p.id} className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
-                <p className="font-medium text-sm text-charcoal-900 truncate">{p.name}</p>
-                <p className="text-xs text-charcoal-800/40 mt-0.5">{p.categories?.name ?? "—"}</p>
+                <p className="font-medium text-sm text-gray-900 truncate">{p.name}</p>
+                <p className="text-xs text-gray-400 mt-0.5">{p.categories?.name ?? "—"}</p>
                 <div className="flex gap-2 mt-2 flex-wrap">
-                  {p.price_usd && <span className="text-xs font-semibold">${p.price_usd.toLocaleString()}</span>}
-                  <span className="text-xs text-charcoal-800/40">{p.product_variants?.length ?? 0} colors</span>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${p.is_active ? "bg-green-50 text-green-600" : "bg-cream-100 text-charcoal-800/40"}`}>
+                  {p.price_usd && <span className="text-xs font-semibold text-gray-900">${p.price_usd.toLocaleString()}</span>}
+                  <span className="text-xs text-gray-400">{p.product_variants?.length ?? 0} colors</span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${p.is_active ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-400"}`}>
                     {p.is_active ? "Active" : "Hidden"}
                   </span>
                   {p.is_featured && <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold-400/10 text-gold-500">Featured</span>}
@@ -94,7 +94,7 @@ export default function AdminProductsClient({ products, categories }: Props) {
               </div>
               <div className="flex gap-1 shrink-0">
                 <Link href={`/admin/products/edit?id=${p.id}`}
-                  className="p-2 hover:bg-cream-100 rounded-lg text-charcoal-800/40 hover:text-charcoal-900">
+                  className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-900">
                   <Pencil size={14}/>
                 </Link>
                 <DeleteProductButton productId={p.id}/>
@@ -105,27 +105,27 @@ export default function AdminProductsClient({ products, categories }: Props) {
       </div>
 
       {/* Desktop table */}
-      <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-cream-100 overflow-hidden">
+      <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-cream-100 bg-cream-50">
+            <tr className="border-b border-gray-200 bg-gray-50">
               {["Product","Category","Price","Colors","Status",""].map(h => (
-                <th key={h} className="text-left px-6 py-4 text-xs uppercase tracking-widest text-charcoal-800/40">{h}</th>
+                <th key={h} className="text-left px-6 py-4 text-xs uppercase tracking-widest text-gray-400">{h}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-cream-100">
+          <tbody className="divide-y divide-gray-100">
             {filtered.length > 0 ? filtered.map(p => (
-              <tr key={p.id} className="hover:bg-cream-50 transition-colors">
+              <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-6 py-4">
-                  <p className="font-medium text-sm text-charcoal-900">{p.name}</p>
-                  <p className="text-xs text-charcoal-800/40">{p.slug}</p>
+                  <p className="font-medium text-sm text-gray-900">{p.name}</p>
+                  <p className="text-xs text-gray-400">{p.slug}</p>
                 </td>
-                <td className="px-6 py-4 text-sm text-charcoal-800/60">{p.categories?.name ?? "—"}</td>
-                <td className="px-6 py-4 text-sm">{p.price_usd ? `$${p.price_usd.toLocaleString()}` : "—"}</td>
-                <td className="px-6 py-4 text-sm text-charcoal-800/60">{p.product_variants?.length ?? 0}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{p.categories?.name ?? "—"}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{p.price_usd ? `$${p.price_usd.toLocaleString()}` : "—"}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{p.product_variants?.length ?? 0}</td>
                 <td className="px-6 py-4">
-                  <span className={`text-xs px-3 py-1 rounded-full ${p.is_active ? "bg-green-50 text-green-600" : "bg-cream-100 text-charcoal-800/40"}`}>
+                  <span className={`text-xs px-3 py-1 rounded-full ${p.is_active ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-400"}`}>
                     {p.is_active ? "Active" : "Hidden"}
                   </span>
                   {p.is_featured && <span className="ml-2 text-xs px-3 py-1 rounded-full bg-gold-400/10 text-gold-500">Featured</span>}
@@ -133,7 +133,7 @@ export default function AdminProductsClient({ products, categories }: Props) {
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2 justify-end">
                     <Link href={`/admin/products/edit?id=${p.id}`}
-                      className="p-2 hover:bg-cream-100 rounded-lg text-charcoal-800/40 hover:text-charcoal-900">
+                      className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-gray-900">
                       <Pencil size={14}/>
                     </Link>
                     <DeleteProductButton productId={p.id}/>
@@ -141,7 +141,7 @@ export default function AdminProductsClient({ products, categories }: Props) {
                 </td>
               </tr>
             )) : (
-              <tr><td colSpan={6} className="px-6 py-16 text-center text-charcoal-800/30 text-sm">No products found</td></tr>
+              <tr><td colSpan={6} className="px-6 py-16 text-center text-gray-300 text-sm">No products found</td></tr>
             )}
           </tbody>
         </table>
