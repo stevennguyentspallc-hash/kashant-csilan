@@ -14,7 +14,7 @@ interface Video {
 
 function getYouTubeId(url: string | null | undefined): string | null {
   if (!url || typeof url !== "string") return null;
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([w-]{11})/);
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/);
   return match ? match[1] : null;
 }
 
