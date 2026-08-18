@@ -22,6 +22,8 @@ const EMPTY_FORM = {
   cta_link: "/products",
 };
 
+const inputCls = "w-full bg-wood-900 border border-wood-300 rounded-xl px-4 py-3 text-sm text-charcoal-900 placeholder:text-charcoal-800/40 focus:outline-none focus:border-gold-400";
+
 export default function AdminBannersPage() {
   const [banners,   setBanners]   = useState<Banner[]>([]);
   const [loading,   setLoading]   = useState(true);
@@ -157,11 +159,11 @@ export default function AdminBannersPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-2xl md:text-3xl font-bold text-charcoal-900">Banners</h1>
-          <p className="text-charcoal-800/50 text-sm mt-1">Manage hero carousel slides</p>
+          <h1 className="font-serif text-2xl md:text-3xl font-bold text-white">Banners</h1>
+          <p className="text-white/50 text-sm mt-1">Manage hero carousel slides</p>
         </div>
         <button onClick={openNew}
-          className="inline-flex items-center gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-charcoal-900 text-white text-xs md:text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full">
+          className="inline-flex items-center gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-wood-500 text-white text-xs md:text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full">
           <Plus size={14} /> Add Banner
         </button>
       </div>
@@ -174,21 +176,21 @@ export default function AdminBannersPage() {
       ) : (
         <div className="space-y-4">
           {banners.length === 0 && (
-            <div className="bg-white rounded-2xl p-12 text-center text-charcoal-800/30 border border-cream-100">
+            <div className="bg-wood-50 rounded-2xl p-12 text-center text-charcoal-800/40 border border-wood-800">
               No banners yet — add your first one!
             </div>
           )}
           {banners.map((b, idx) => (
             <div key={b.id}
-              className={`bg-white rounded-2xl border overflow-hidden shadow-sm flex transition-all ${
-                b.is_active ? "border-cream-100" : "border-cream-200 opacity-60"
+              className={`bg-wood-50 rounded-2xl border overflow-hidden shadow-sm flex transition-all ${
+                b.is_active ? "border-wood-800" : "border-wood-300 opacity-60"
               }`}>
               {/* Thumbnail */}
-              <div className="relative w-32 md:w-48 h-24 md:h-32 shrink-0 bg-charcoal-900">
+              <div className="relative w-32 md:w-48 h-24 md:h-32 shrink-0 bg-wood-900">
                 {b.image_url ? (
                   <Image src={b.image_url} alt={b.title} fill className="object-cover opacity-70" />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-charcoal-900 to-charcoal-800" />
+                  <div className="w-full h-full bg-gradient-to-br from-wood-900 to-wood-700" />
                 )}
                 <div className="absolute inset-0 flex items-center justify-center p-2">
                   <p className="text-white text-xs font-serif font-bold text-center line-clamp-2 leading-snug">
@@ -202,16 +204,16 @@ export default function AdminBannersPage() {
                 <div className="min-w-0">
                   <p className="font-medium text-sm text-charcoal-900 truncate">{b.title}</p>
                   {b.subtitle && (
-                    <p className="text-xs text-charcoal-800/50 truncate mt-0.5">{b.subtitle}</p>
+                    <p className="text-xs text-charcoal-800/60 truncate mt-0.5">{b.subtitle}</p>
                   )}
                   <div className="flex gap-2 mt-2 flex-wrap">
                     {b.cta_text && (
-                      <span className="text-[10px] px-2 py-0.5 bg-cream-100 text-charcoal-800/60 rounded-full">
+                      <span className="text-[10px] px-2 py-0.5 bg-wood-900 text-charcoal-800/70 rounded-full">
                         {b.cta_text} → {b.cta_link}
                       </span>
                     )}
                     <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                      b.is_active ? "bg-green-50 text-green-600" : "bg-cream-100 text-charcoal-800/40"
+                      b.is_active ? "bg-green-500/15 text-green-400" : "bg-wood-900 text-charcoal-800/50"
                     }`}>
                       {b.is_active ? "Active" : "Hidden"}
                     </span>
@@ -223,28 +225,28 @@ export default function AdminBannersPage() {
                   {/* Order buttons */}
                   <div className="flex flex-col gap-0.5 mr-1">
                     <button onClick={() => moveOrder(b.id, "up")} disabled={idx === 0}
-                      className="text-charcoal-800/30 hover:text-charcoal-900 disabled:opacity-20 text-xs leading-none p-1">
+                      className="text-charcoal-800/50 hover:text-white disabled:opacity-20 text-xs leading-none p-1">
                       ▲
                     </button>
                     <button onClick={() => moveOrder(b.id, "down")} disabled={idx === banners.length - 1}
-                      className="text-charcoal-800/30 hover:text-charcoal-900 disabled:opacity-20 text-xs leading-none p-1">
+                      className="text-charcoal-800/50 hover:text-white disabled:opacity-20 text-xs leading-none p-1">
                       ▼
                     </button>
                   </div>
                   <button onClick={() => toggleActive(b.id, b.is_active)}
                     className={`text-xs px-2.5 py-1.5 rounded-full border transition-colors ${
                       b.is_active
-                        ? "border-cream-200 text-charcoal-800/50 hover:border-yellow-400 hover:text-yellow-600"
-                        : "border-green-200 text-green-600 hover:bg-green-50"
+                        ? "border-wood-300 text-charcoal-800/60 hover:border-yellow-400 hover:text-yellow-400"
+                        : "border-green-500/40 text-green-400 hover:bg-green-500/15"
                     }`}>
                     {b.is_active ? "Hide" : "Show"}
                   </button>
                   <button onClick={() => openEdit(b)}
-                    className="p-2 hover:bg-cream-100 rounded-lg text-charcoal-800/40 hover:text-charcoal-900 transition-colors">
+                    className="p-2 hover:bg-wood-100 rounded-lg text-charcoal-800/60 hover:text-white transition-colors">
                     <Pencil size={14} />
                   </button>
                   <button onClick={() => handleDelete(b.id)}
-                    className="p-2 hover:bg-red-50 rounded-lg text-charcoal-800/40 hover:text-red-500 transition-colors">
+                    className="p-2 hover:bg-red-500/10 rounded-lg text-charcoal-800/60 hover:text-red-400 transition-colors">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -256,31 +258,31 @@ export default function AdminBannersPage() {
 
       {/* Modal form */}
       {showForm && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-cream-100">
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+          <div className="bg-wood-50 border border-wood-800 w-full max-w-lg rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-wood-800">
               <h2 className="font-serif text-xl font-bold text-charcoal-900">
                 {editId ? "Edit Banner" : "New Banner"}
               </h2>
-              <button onClick={() => setShowForm(false)} className="text-charcoal-800/40 hover:text-charcoal-900">
+              <button onClick={() => setShowForm(false)} className="text-charcoal-800/50 hover:text-charcoal-900">
                 <X size={20} />
               </button>
             </div>
 
             <div className="p-6 space-y-4">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
+                <div className="bg-red-950/40 border border-red-500/40 text-red-300 text-sm px-4 py-3 rounded-xl">
                   {error}
                 </div>
               )}
 
               {/* Image upload */}
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-2 block">
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-2 block">
                   Background Image
                 </label>
                 <label className="cursor-pointer block">
-                  <div className="relative w-full h-36 rounded-xl border-2 border-dashed border-cream-200 hover:border-gold-400 transition-colors overflow-hidden bg-charcoal-900">
+                  <div className="relative w-full h-36 rounded-xl border-2 border-dashed border-wood-300 hover:border-gold-400 transition-colors overflow-hidden bg-wood-900">
                     {preview ? (
                       <Image src={preview} alt="preview" fill className="object-cover opacity-70" />
                     ) : (
@@ -292,53 +294,53 @@ export default function AdminBannersPage() {
                   </div>
                   <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                 </label>
-                <p className="text-xs text-charcoal-800/30 mt-1">Recommended: 1920×1080px. Leave empty for dark gradient.</p>
+                <p className="text-xs text-charcoal-800/40 mt-1">Recommended: 1920×1080px. Leave empty for dark gradient.</p>
               </div>
 
               {/* Title */}
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">
-                  Title * <span className="normal-case text-charcoal-800/30">(use \n for line break)</span>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">
+                  Title * <span className="normal-case text-charcoal-800/40">(use \n for line break)</span>
                 </label>
                 <input value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
-                  className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                  className={inputCls}
                   placeholder="Elevate Your Salon.\nElevate Your Brand." />
               </div>
 
               {/* Subtitle */}
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Subtitle</label>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Subtitle</label>
                 <textarea rows={2} value={form.subtitle}
                   onChange={(e) => setForm((p) => ({ ...p, subtitle: e.target.value }))}
-                  className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 resize-none"
+                  className={inputCls + " resize-none"}
                   placeholder="Premium nail salon furniture for the modern US salon..." />
               </div>
 
               {/* CTA */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Button Text</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Button Text</label>
                   <input value={form.cta_text}
                     onChange={(e) => setForm((p) => ({ ...p, cta_text: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                    className={inputCls}
                     placeholder="Shop Collection" />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Button Link</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Button Link</label>
                   <input value={form.cta_link}
                     onChange={(e) => setForm((p) => ({ ...p, cta_link: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                    className={inputCls}
                     placeholder="/products" />
                 </div>
               </div>
 
               <div className="flex gap-3 pt-2">
                 <button onClick={handleSave} disabled={saving}
-                  className="flex-1 py-3.5 bg-charcoal-900 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full disabled:opacity-50">
+                  className="flex-1 py-3.5 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full disabled:opacity-50">
                   {saving ? "Saving..." : editId ? "Save Changes" : "Add Banner"}
                 </button>
                 <button onClick={() => setShowForm(false)}
-                  className="px-6 py-3.5 border border-cream-200 text-charcoal-800 text-sm uppercase tracking-widest hover:border-charcoal-900 transition-colors rounded-full">
+                  className="px-6 py-3.5 border border-wood-300 text-charcoal-800 text-sm uppercase tracking-widest hover:border-white transition-colors rounded-full">
                   Cancel
                 </button>
               </div>
