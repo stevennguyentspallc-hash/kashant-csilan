@@ -35,7 +35,7 @@ export default function AdminSidebar() {
   const NavContent = () => (
     <>
       <div className="p-6 border-b border-white/10">
-        <p className="font-serif text-xl font-bold text-white">KASHANT</p>
+        <p className="font-serif text-xl font-bold text-white">SLIAN</p>
         <p className="text-[10px] tracking-widest2 text-gold-400 uppercase mt-0.5">Admin Panel</p>
       </div>
 
@@ -70,14 +70,14 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex fixed left-0 top-0 h-full w-64 bg-charcoal-900 flex-col z-40">
+      <aside className="hidden md:flex fixed left-0 top-0 h-full w-64 bg-wood-900 flex-col z-40">
         <NavContent/>
       </aside>
 
       {/* Mobile top bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-charcoal-900 flex items-center justify-between px-4 py-3 shadow-lg">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-wood-900 flex items-center justify-between px-4 py-3 shadow-lg">
         <div>
-          <p className="font-serif text-lg font-bold text-white leading-none">KASHANT</p>
+          <p className="font-serif text-lg font-bold text-white leading-none">SLIAN</p>
           <p className="text-[9px] tracking-widest text-gold-400 uppercase">Admin Panel</p>
         </div>
         <button onClick={() => setOpen(!open)} className="text-white/70 hover:text-white p-1">
@@ -89,7 +89,7 @@ export default function AdminSidebar() {
       {open && (
         <div className="md:hidden fixed inset-0 z-40">
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)}/>
-          <aside className="absolute left-0 top-0 h-full w-72 bg-charcoal-900 flex flex-col z-50">
+          <aside className="absolute left-0 top-0 h-full w-72 bg-wood-900 flex flex-col z-50">
             <NavContent/>
           </aside>
         </div>
