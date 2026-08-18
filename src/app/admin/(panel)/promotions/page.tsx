@@ -24,6 +24,8 @@ const EMPTY = {
   start_date: "", end_date: "",
 };
 
+const inputCls = "w-full bg-wood-900 border border-wood-300 rounded-xl px-4 py-3 text-sm text-charcoal-900 placeholder:text-charcoal-800/40 focus:outline-none focus:border-gold-400";
+
 export default function AdminPromotionsPage() {
   const [promos,    setPromos]    = useState<Promotion[]>([]);
   const [loading,   setLoading]   = useState(true);
@@ -126,11 +128,11 @@ export default function AdminPromotionsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-2xl md:text-3xl font-bold text-charcoal-900">Promotions</h1>
-          <p className="text-charcoal-800/50 text-sm mt-1">{promos.length} promotions</p>
+          <h1 className="font-serif text-2xl md:text-3xl font-bold text-white">Promotions</h1>
+          <p className="text-white/50 text-sm mt-1">{promos.length} promotions</p>
         </div>
         <button onClick={openNew}
-          className="inline-flex items-center gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-charcoal-900 text-white text-xs md:text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full">
+          className="inline-flex items-center gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-wood-500 text-white text-xs md:text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full">
           <Plus size={14} /> Add Promotion
         </button>
       </div>
@@ -142,18 +144,18 @@ export default function AdminPromotionsPage() {
       ) : (
         <div className="space-y-4">
           {promos.length === 0 && (
-            <div className="bg-white rounded-2xl p-12 text-center text-charcoal-800/30 border border-cream-100">
+            <div className="bg-wood-50 rounded-2xl p-12 text-center text-charcoal-800/40 border border-wood-800">
               No promotions yet — add your first one!
             </div>
           )}
           {promos.map((p) => (
-            <div key={p.id} className={`bg-white rounded-2xl border overflow-hidden shadow-sm flex ${p.is_active ? "border-cream-100" : "border-cream-200 opacity-60"}`}>
+            <div key={p.id} className={`bg-wood-50 rounded-2xl border overflow-hidden shadow-sm flex ${p.is_active ? "border-wood-800" : "border-wood-300 opacity-60"}`}>
               {/* Thumbnail */}
-              <div className="relative w-32 md:w-48 h-24 md:h-32 shrink-0 bg-charcoal-900">
+              <div className="relative w-32 md:w-48 h-24 md:h-32 shrink-0 bg-wood-900">
                 {p.image_url ? (
                   <Image src={p.image_url} alt={p.title} fill className="object-cover opacity-70" />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-charcoal-900 to-gold-500/20" />
+                  <div className="w-full h-full bg-gradient-to-br from-wood-900 to-gold-500/20" />
                 )}
                 {p.badge && (
                   <span className="absolute top-2 left-2 bg-gold-400 text-white text-[9px] px-2 py-0.5 rounded-full uppercase">
@@ -165,14 +167,14 @@ export default function AdminPromotionsPage() {
               <div className="flex-1 p-4 flex items-center justify-between gap-3 min-w-0">
                 <div className="min-w-0">
                   <p className="font-medium text-sm text-charcoal-900 truncate">{p.title}</p>
-                  {p.description && <p className="text-xs text-charcoal-800/50 truncate mt-0.5">{p.description}</p>}
+                  {p.description && <p className="text-xs text-charcoal-800/60 truncate mt-0.5">{p.description}</p>}
                   <div className="flex gap-2 mt-2 flex-wrap">
                     {p.end_date && (
-                      <span className="text-[10px] px-2 py-0.5 bg-cream-100 text-charcoal-800/60 rounded-full">
+                      <span className="text-[10px] px-2 py-0.5 bg-wood-900 text-charcoal-800/70 rounded-full">
                         Ends {new Date(p.end_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </span>
                     )}
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full ${p.is_active ? "bg-green-50 text-green-600" : "bg-cream-100 text-charcoal-800/40"}`}>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full ${p.is_active ? "bg-green-500/15 text-green-400" : "bg-wood-900 text-charcoal-800/50"}`}>
                       {p.is_active ? "Active" : "Hidden"}
                     </span>
                   </div>
@@ -182,17 +184,17 @@ export default function AdminPromotionsPage() {
                   <button onClick={() => toggleActive(p.id, p.is_active)}
                     className={`text-xs px-2.5 py-1.5 rounded-full border transition-colors ${
                       p.is_active
-                        ? "border-cream-200 text-charcoal-800/50 hover:border-yellow-400 hover:text-yellow-600"
-                        : "border-green-200 text-green-600 hover:bg-green-50"
+                        ? "border-wood-300 text-charcoal-800/60 hover:border-yellow-400 hover:text-yellow-400"
+                        : "border-green-500/40 text-green-400 hover:bg-green-500/15"
                     }`}>
                     {p.is_active ? "Hide" : "Show"}
                   </button>
                   <button onClick={() => openEdit(p)}
-                    className="p-2 hover:bg-cream-100 rounded-lg text-charcoal-800/40 hover:text-charcoal-900 transition-colors">
+                    className="p-2 hover:bg-wood-100 rounded-lg text-charcoal-800/60 hover:text-white transition-colors">
                     <Pencil size={14} />
                   </button>
                   <button onClick={() => handleDelete(p.id)}
-                    className="p-2 hover:bg-red-50 rounded-lg text-charcoal-800/40 hover:text-red-500 transition-colors">
+                    className="p-2 hover:bg-red-500/10 rounded-lg text-charcoal-800/60 hover:text-red-400 transition-colors">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -204,20 +206,20 @@ export default function AdminPromotionsPage() {
 
       {/* Modal */}
       {showForm && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-cream-100">
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+          <div className="bg-wood-50 border border-wood-800 w-full max-w-lg rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-wood-800">
               <h2 className="font-serif text-xl font-bold text-charcoal-900">{editId ? "Edit Promotion" : "New Promotion"}</h2>
-              <button onClick={() => setShowForm(false)} className="text-charcoal-800/40 hover:text-charcoal-900"><X size={20} /></button>
+              <button onClick={() => setShowForm(false)} className="text-charcoal-800/50 hover:text-charcoal-900"><X size={20} /></button>
             </div>
             <div className="p-6 space-y-4">
-              {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">{error}</div>}
+              {error && <div className="bg-red-950/40 border border-red-500/40 text-red-300 text-sm px-4 py-3 rounded-xl">{error}</div>}
 
               {/* Image */}
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-2 block">Background Image</label>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-2 block">Background Image</label>
                 <label className="cursor-pointer block">
-                  <div className="relative w-full h-32 rounded-xl border-2 border-dashed border-cream-200 hover:border-gold-400 transition-colors overflow-hidden bg-charcoal-900">
+                  <div className="relative w-full h-32 rounded-xl border-2 border-dashed border-wood-300 hover:border-gold-400 transition-colors overflow-hidden bg-wood-900">
                     {preview
                       ? <Image src={preview} alt="preview" fill className="object-cover opacity-70" />
                       : <div className="w-full h-full flex flex-col items-center justify-center gap-2"><Upload size={20} className="text-white/30" /><p className="text-white/30 text-xs">Upload image</p></div>
@@ -233,61 +235,61 @@ export default function AdminPromotionsPage() {
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Title *</label>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Title *</label>
                 <input value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
-                  className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                  className={inputCls}
                   placeholder="Summer Sale — 20% Off All Pedicure Chairs" />
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Description</label>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Description</label>
                 <textarea rows={2} value={form.description} onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
-                  className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 resize-none"
+                  className={inputCls + " resize-none"}
                   placeholder="Limited time offer for nail salon owners..." />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Badge</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Badge</label>
                   <input value={form.badge} onChange={(e) => setForm((p) => ({ ...p, badge: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                    className={inputCls}
                     placeholder="20% OFF" />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Button Text</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Button Text</label>
                   <input value={form.cta_text} onChange={(e) => setForm((p) => ({ ...p, cta_text: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                    className={inputCls}
                     placeholder="Shop Now" />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Button Link</label>
+                <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Button Link</label>
                 <input value={form.cta_link} onChange={(e) => setForm((p) => ({ ...p, cta_link: e.target.value }))}
-                  className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400"
+                  className={inputCls}
                   placeholder="/products" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">Start Date</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">Start Date</label>
                   <input type="date" value={form.start_date} onChange={(e) => setForm((p) => ({ ...p, start_date: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400" />
+                    className={inputCls} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-charcoal-800/50 mb-1 block">End Date</label>
+                  <label className="text-xs uppercase tracking-wider text-charcoal-800/60 mb-1 block">End Date</label>
                   <input type="date" value={form.end_date} onChange={(e) => setForm((p) => ({ ...p, end_date: e.target.value }))}
-                    className="w-full border border-cream-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400" />
+                    className={inputCls} />
                 </div>
               </div>
 
               <div className="flex gap-3 pt-2">
                 <button onClick={handleSave} disabled={saving}
-                  className="flex-1 py-3.5 bg-charcoal-900 text-white text-sm tracking-widest uppercase hover:bg-gold-500 transition-colors rounded-full disabled:opacity-50">
+                  className="flex-1 py-3.5 bg-wood-500 text-white text-sm tracking-widest uppercase hover:bg-wood-600 transition-colors rounded-full disabled:opacity-50">
                   {saving ? "Saving..." : editId ? "Save Changes" : "Add Promotion"}
                 </button>
                 <button onClick={() => setShowForm(false)}
-                  className="px-6 py-3.5 border border-cream-200 text-charcoal-800 text-sm uppercase tracking-widest hover:border-charcoal-900 transition-colors rounded-full">
+                  className="px-6 py-3.5 border border-wood-300 text-charcoal-800 text-sm uppercase tracking-widest hover:border-white transition-colors rounded-full">
                   Cancel
                 </button>
               </div>
